@@ -24,6 +24,7 @@ environ.Env.read_env(
     env_file=os.path.join(BASE_DIR, '.env')
 )
 
+# 확인!!!!!!!!!!!!
 API_KEY = env('API_KEY')
 
 
