@@ -58,6 +58,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
 
+    # CORS
+    'corsheaders',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -68,9 +71,9 @@ INSTALLED_APPS = [
 
 # Token 인증을 기본으로 사용하도록 설정
 REST_FRAMEWORK = {
-'DEFAULT_AUTHENTICATION_CLASSES': [
-'rest_framework.authentication.TokenAuthentication',
-]
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+    'rest_framework.authentication.TokenAuthentication',
+    ]
 }
 
 
@@ -79,11 +82,20 @@ MIDDLEWARE = [
 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # CORS
+    # 순서가 중요! 오류날 수 있음 (common위에 적기)
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+# CORS
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
 ]
 
 # ALL AUTH 수정
@@ -174,5 +186,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# REST-AUTH 회원가입 기본 Serailizer 재정의
+REST_AUTH = {
+'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
+}
+
 
 AUTH_USER_MODEL = 'accounts.User'
