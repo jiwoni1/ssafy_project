@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>메인</h1>
+        <h1>메인 페이지</h1>
         <form>
             
 
@@ -9,8 +9,6 @@
 </template>
 
 <script setup>
-import { useBankStore } from '../stores/bank'
-const store = useBankStore()
 
 
 </script>

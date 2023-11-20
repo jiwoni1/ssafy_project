@@ -1,13 +1,13 @@
-from django.shortcuts import render
+import requests
 
-# Create your views here.
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.conf import settings 
 from django.http import JsonResponse
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-import requests
+
 from .models import DepositOptions, DepositProducts, SavingProducts, SavingOptions, ExchangeRate
 from .serializers import DepositOptionsSerializer, DepositProductsSerializer, SavingProductsSerializer, SavingOptionsSerializer, ExchangeRateSerializer
 
@@ -19,6 +19,7 @@ def save_deposit_products(request):
     url = f'http://finlife.fss.or.kr/finlifeapi/depositProductsSearch.json?auth={api_key}&topFinGrpNo=020000&pageNo=1'
     response = requests.get(url).json()
 
+    # 예금 상품 데이터
     for li in response.get('result').get("baseList"):
         save_data = {
             'fin_prdt_cd' : li.get('fin_prdt_cd'),
@@ -38,10 +39,10 @@ def save_deposit_products(request):
         if DepositProducts.objects.filter(fin_prdt_cd=save_data['fin_prdt_cd']).exists():
             continue
         else:
-            # 저장하기 위해 포장
             serializer = DepositProductsSerializer(data=save_data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
+
 
     # 옵션 데이터
     for li in response.get('result').get("optionList"):
@@ -53,11 +54,9 @@ def save_deposit_products(request):
             'save_trm' : li.get('save_trm'),
         }
 
-    
         if DepositOptions.objects.filter(fin_prdt_cd=save_data['fin_prdt_cd']).exists():
             continue
         else:
-            # 저장하기 위해 포장
             serializer = DepositOptionsSerializer(data=save_data)
             product = get_object_or_404(DepositProducts, fin_prdt_cd=li.get('fin_prdt_cd'))
             if serializer.is_valid(raise_exception=True):
@@ -66,7 +65,7 @@ def save_deposit_products(request):
     return Response({'저장': '성공'})
 
 
-# DB에 저장된 예금 상품, 옵션 목록 출력하기
+# DB에 저장된 예금 상품, 옵션 목록 출력
 @api_view(['GET'])
 def deposit_products(request):
     if request.method == 'GET':
@@ -82,8 +81,8 @@ def save_saving_products(request):
     url = f'http://finlife.fss.or.kr/finlifeapi/savingProductsSearch.json?auth={api_key}&topFinGrpNo=020000&pageNo=1'
     response = requests.get(url).json()
 
+    # 적금 상품 데이터
     for li in response.get('result').get("baseList"):
-
         save_data = {
             'dcls_month' : li.get('dcls_month'),
             'kor_co_nm' : li.get('kor_co_nm').replace('주식회사', ''),
@@ -101,12 +100,12 @@ def save_saving_products(request):
         if SavingProducts.objects.filter(fin_prdt_cd=save_data['fin_prdt_cd']).exists():
             continue
         else:
-            # 저장하기 위해 포장
             serializer = SavingProductsSerializer(data=save_data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
     
-        # 옵션 데이터
+
+    # 옵션 데이터
     for li in response.get('result').get("optionList"):
         save_data = {
             'fin_prdt_cd' : li.get('fin_prdt_cd'),
@@ -117,11 +116,9 @@ def save_saving_products(request):
             'save_trm' : li.get('save_trm'),
         }
 
-    
         if SavingOptions.objects.filter(fin_prdt_cd=save_data['fin_prdt_cd']).exists():
             continue
         else:
-            # 저장하기 위해 포장
             serializer = SavingOptionsSerializer(data=save_data)
             product = get_object_or_404(SavingProducts, fin_prdt_cd=li.get('fin_prdt_cd'))
             if serializer.is_valid(raise_exception=True):
@@ -130,8 +127,7 @@ def save_saving_products(request):
     return Response({'저장': '성공'})
 
     
-
-# DB에 저장된 적금 상품 목록 받아오기
+# DB에 저장된 적금 상품 목록, 옵션 목록 출력
 @api_view(['GET'])
 def saving_products(request):
     if request.method == 'GET':
@@ -163,7 +159,8 @@ def save_exchange_rate(request):
 
     return JsonResponse({'저장': '성공'})
 
-# 환율 데이터 출력하기
+
+# 환율 데이터 출력
 @api_view(['GET'])
 def exchange_rate(request):
     if request.method == 'GET':

@@ -15,7 +15,7 @@
 
 <script setup>
 import { useBankStore } from '@/stores/bank'
-import { ref, onMounted, computed, watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 
 const store = useBankStore()
 
@@ -26,6 +26,7 @@ onMounted(() => {
 
 // 국가 선택
 const selected_country = ref('')
+
 
 // 원화 -> 다른 나라 통화
 // 다른 나라 통화 -> 원화

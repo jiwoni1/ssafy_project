@@ -5,7 +5,9 @@
 </template>
 
 <script setup>
+import { useArticleStore } from '@/stores/article'
 
+const store = useArticleStore()
 </script>
 
 <style scoped>

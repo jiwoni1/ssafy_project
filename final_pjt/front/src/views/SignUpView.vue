@@ -34,9 +34,9 @@
   <script setup>
 
   import { ref } from 'vue'
-  import { useBankStore } from '@/stores/bank'
+  import { useArticleStore } from '@/stores/article'
 
-  const store = useBankStore()
+  const store = useArticleStore()
   const username = ref(null)
   const password1 = ref(null)
   const password2 = ref(null)
@@ -47,8 +47,7 @@
   const salary = ref(null)
   
   const signUp = function () {
-    // 전달해줄 데이터
-    // 하나의 객체로 묶어서 전달
+    // 전달해줄 데이터 하나의 객체로 묶어서 전달
      const payload = {
       username : username.value,
       password1: password1.value,

@@ -7,7 +7,7 @@ from dj_rest_auth.registration.serializers import RegisterSerializer
 
 
 class CustomRegisterSerializer(RegisterSerializer):
-    # 추가할 필드들을 정의합니다.
+    # 추가할 필드들을 정의.
     nickname = serializers.CharField(
     required=False,
     allow_blank=True,

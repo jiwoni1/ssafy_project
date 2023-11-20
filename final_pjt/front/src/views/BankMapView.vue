@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>은행 날짜</h1>
+        <h1>은행</h1>
         <div id="map" style="width: 500px;height: 400px;"></div>
     </div>
 </template>

@@ -10,11 +10,10 @@
   </template>
   
   <script setup>
-  // 사용자가 입력하는 정보를 실시간으로 저장해야해 -> ref
   import { ref } from 'vue'
-  import { useBankStore } from '@/stores/bank'
+  import { useArticleStore } from '@/stores/article'
   
-  const store = useBankStore()
+  const store = useArticleStore()
   const username = ref(null)
   const password = ref(null)
   

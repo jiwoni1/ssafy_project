@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import DepositOptions, DepositProducts, SavingProducts, SavingOptions, ExchangeRate
 
+# 예금 옵션
 class DepositOptionsSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -8,6 +9,8 @@ class DepositOptionsSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('product',)
 
+
+# 예금 상품 ( + 예금 옵션 )
 class DepositProductsSerializer(serializers.ModelSerializer):
     depositoptions_set = DepositOptionsSerializer(many=True, read_only=True)
 
@@ -15,15 +18,8 @@ class DepositProductsSerializer(serializers.ModelSerializer):
         model = DepositProducts
         fields = '__all__'
 
-# class GetDepositOptionsSerializer(serializers.ModelSerializer):
-    
-#     class Meta:
-#         model = DepositOptions
-#         exclude = ('fin_prdt_cd',)
-#         read_only_fields = ('product',)
 
-
-
+# 적금 옵션
 class SavingOptionsSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -31,6 +27,8 @@ class SavingOptionsSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('product',)
 
+
+# 적금 상품 ( + 적금 옵션 )
 class SavingProductsSerializer(serializers.ModelSerializer):
     savingoptions_set = SavingOptionsSerializer(many=True, read_only=True)
 
@@ -38,12 +36,14 @@ class SavingProductsSerializer(serializers.ModelSerializer):
         model = SavingProducts
         fields = '__all__'
 
+
 # class GetSavingOptionsSerializer(serializers.ModelSerializer):
     
 #     class Meta:
 #         model = SavingOptions
 #         exclude = ('fin_prdt_cd',)
 #         read_only_fields = ('product',)
+
 
 
 # 환율

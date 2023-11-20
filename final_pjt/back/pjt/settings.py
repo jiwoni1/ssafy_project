@@ -24,7 +24,6 @@ environ.Env.read_env(
     env_file=os.path.join(BASE_DIR, '.env')
 )
 
-# 확인!!!!!!!!!!!!
 BANK_API_KEY = env('BANK_API_KEY')
 EXCHANGE_RATE_API_KEY = env('EXCHANGE_RATE_API_KEY')
 

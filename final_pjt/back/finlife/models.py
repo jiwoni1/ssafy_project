@@ -1,7 +1,6 @@
 from django.db import models
 
-# Create your models here.
-
+# 예금 상품
 class DepositProducts(models.Model):
     dcls_month = models.TextField()
     fin_prdt_cd = models.TextField(unique=True)
@@ -15,6 +14,8 @@ class DepositProducts(models.Model):
     mtrt_int = models.TextField()
     max_limit = models.TextField(null=True)
 
+
+# 예금 옵션
 class DepositOptions(models.Model):
     product = models.ForeignKey(DepositProducts, on_delete=models.CASCADE)
     fin_prdt_cd = models.TextField()
@@ -23,6 +24,8 @@ class DepositOptions(models.Model):
     intr_rate2 = models.FloatField(null=True)
     save_trm = models.IntegerField()
 
+
+# 적금 상품
 class SavingProducts(models.Model):
     dcls_month = models.TextField()
     fin_prdt_cd = models.TextField(unique=True)
@@ -37,6 +40,7 @@ class SavingProducts(models.Model):
     max_limit = models.TextField(null=True)
 
 
+# 적금 옵션
 class SavingOptions(models.Model):
     product = models.ForeignKey(SavingProducts, on_delete=models.CASCADE)
     fin_prdt_cd = models.TextField()
@@ -45,6 +49,7 @@ class SavingOptions(models.Model):
     intr_rate = models.FloatField(null=True)
     intr_rate2 = models.FloatField(null=True)
     save_trm = models.IntegerField()
+
 
 # 환율
 class ExchangeRate(models.Model):
