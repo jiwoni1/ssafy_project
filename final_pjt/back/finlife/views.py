@@ -15,7 +15,7 @@ from .serializers import DepositOptionsSerializer, DepositProductsSerializer, Sa
 # 예금 상품, 옵션 데이터 저장
 @api_view(['GET'])
 def save_deposit_products(request):
-    api_key = settings.API_KEY
+    api_key = settings.BANK_API_KEY
     url = f'http://finlife.fss.or.kr/finlifeapi/depositProductsSearch.json?auth={api_key}&topFinGrpNo=020000&pageNo=1'
     response = requests.get(url).json()
 
@@ -78,7 +78,7 @@ def deposit_products(request):
 # 적금 상품 데이터 저장
 @api_view(['GET'])
 def save_saving_products(request):
-    api_key = settings.API_KEY
+    api_key = settings.BANK_API_KEY
     url = f'http://finlife.fss.or.kr/finlifeapi/savingProductsSearch.json?auth={api_key}&topFinGrpNo=020000&pageNo=1'
     response = requests.get(url).json()
 

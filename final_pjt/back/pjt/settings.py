@@ -25,7 +25,8 @@ environ.Env.read_env(
 )
 
 # 확인!!!!!!!!!!!!
-API_KEY = env('API_KEY')
+BANK_API_KEY = env('BANK_API_KEY')
+EXCHANGE_RATE_API_KEY = env('EXCHANGE_RATE_API_KEY')
 
 
 # Quick-start development settings - unsuitable for production
