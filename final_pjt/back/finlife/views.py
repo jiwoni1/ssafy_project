@@ -8,11 +8,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 import requests
-from .models import DepositOptions, DepositProducts, SavingProducts
-from .serializers import DepositOptionsSerializer, DepositProductsSerializer, GetOptionsSerializer, SavingProductsSerializer
+from .models import DepositOptions, DepositProducts, SavingProducts, SavingOptions, ExchangeRate
+from .serializers import DepositOptionsSerializer, DepositProductsSerializer, SavingProductsSerializer, SavingOptionsSerializer, ExchangeRateSerializer
 
 
-# 예금 상품 데이터 저장
+# 예금 상품, 옵션 데이터 저장
 @api_view(['GET'])
 def save_deposit_products(request):
     api_key = settings.API_KEY
@@ -22,15 +22,19 @@ def save_deposit_products(request):
     for li in response.get('result').get("baseList"):
         save_data = {
             'fin_prdt_cd' : li.get('fin_prdt_cd'),
-            'kor_co_nm' : li.get('kor_co_nm'),
+            'kor_co_nm' : li.get('kor_co_nm').replace('주식회사', ''),
             'fin_prdt_nm' : li.get('fin_prdt_nm'),
             'etc_note' : li.get('etc_note'),
             'join_deny' : li.get('join_deny'),
             'join_member' : li.get('join_member'),
             'join_way' : li.get('join_way'),
             'spcl_cnd' : li.get('spcl_cnd'),
+            'dcls_month' : li.get('dcls_month'),
+            'mtrt_int' : li.get('mtrt_int'),
+            'max_limit' : li.get('max_limit'),
         }
-    
+
+        # 이미 있는 것은 저장 X
         if DepositProducts.objects.filter(fin_prdt_cd=save_data['fin_prdt_cd']).exists():
             continue
         else:
@@ -39,10 +43,30 @@ def save_deposit_products(request):
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
 
+    # 옵션 데이터
+    for li in response.get('result').get("optionList"):
+        save_data = {
+            'fin_prdt_cd' : li.get('fin_prdt_cd'),
+            'intr_rate_type_nm' : li.get('intr_rate_type_nm'),
+            'intr_rate' : li.get('intr_rate'),
+            'intr_rate2' : li.get('intr_rate2'),
+            'save_trm' : li.get('save_trm'),
+        }
+
+    
+        if DepositOptions.objects.filter(fin_prdt_cd=save_data['fin_prdt_cd']).exists():
+            continue
+        else:
+            # 저장하기 위해 포장
+            serializer = DepositOptionsSerializer(data=save_data)
+            product = get_object_or_404(DepositProducts, fin_prdt_cd=li.get('fin_prdt_cd'))
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(product=product)
+
     return Response({'저장': '성공'})
 
 
-# DB에 저장된 예금 상품 목록 받아오기
+# DB에 저장된 예금 상품, 옵션 목록 출력하기
 @api_view(['GET'])
 def deposit_products(request):
     if request.method == 'GET':
@@ -62,7 +86,7 @@ def save_saving_products(request):
 
         save_data = {
             'dcls_month' : li.get('dcls_month'),
-            'kor_co_nm' : li.get('kor_co_nm'),
+            'kor_co_nm' : li.get('kor_co_nm').replace('주식회사', ''),
             'fin_prdt_cd' : li.get('fin_prdt_cd'),
             'fin_prdt_nm' : li.get('fin_prdt_nm'),
             'etc_note' : li.get('etc_note'),
@@ -70,6 +94,8 @@ def save_saving_products(request):
             'join_member' : li.get('join_member'),
             'join_way' : li.get('join_way'),
             'spcl_cnd' : li.get('spcl_cnd'),
+            'mtrt_int' : li.get('mtrt_int'),
+            'max_limit' : li.get('max_limit'),
         }
 
         if SavingProducts.objects.filter(fin_prdt_cd=save_data['fin_prdt_cd']).exists():
@@ -80,7 +106,29 @@ def save_saving_products(request):
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
     
+        # 옵션 데이터
+    for li in response.get('result').get("optionList"):
+        save_data = {
+            'fin_prdt_cd' : li.get('fin_prdt_cd'),
+            'intr_rate_type_nm' : li.get('intr_rate_type_nm'),
+            'rsrv_type_nm' : li.get('rsrv_type_nm'),
+            'intr_rate' : li.get('intr_rate'),
+            'intr_rate2' : li.get('intr_rate2'),
+            'save_trm' : li.get('save_trm'),
+        }
+
+    
+        if SavingOptions.objects.filter(fin_prdt_cd=save_data['fin_prdt_cd']).exists():
+            continue
+        else:
+            # 저장하기 위해 포장
+            serializer = SavingOptionsSerializer(data=save_data)
+            product = get_object_or_404(SavingProducts, fin_prdt_cd=li.get('fin_prdt_cd'))
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(product=product)
+
     return Response({'저장': '성공'})
+
     
 
 # DB에 저장된 적금 상품 목록 받아오기
@@ -89,4 +137,36 @@ def saving_products(request):
     if request.method == 'GET':
         saving_product_list = SavingProducts.objects.all()
         serializer = SavingProductsSerializer(saving_product_list, many=True)
+        return Response(serializer.data)
+
+
+# 환율 데이터 가져오기
+@api_view(['GET'])
+def save_exchange_rate(request):
+    api_key = settings.EXCHANGE_RATE_API_KEY
+    search_date = 20180102
+    url = f' https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey={api_key}&searchdate={search_date}&data=AP01'
+    response = requests.get(url).json()
+
+    for li in response:
+        save_data = {
+            'cur_unit': li.get('cur_unit'),                     # 통화코드
+            'cur_nm': li.get('cur_nm'),                         # 국가/통화명
+            'deal_bas_r': li.get('deal_bas_r').replace(',','')  # 환율
+        }
+        if ExchangeRate.objects.filter(deal_bas_r=save_data['deal_bas_r']).exists():
+            continue
+        else:
+            serializer = ExchangeRateSerializer(data=save_data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+
+    return JsonResponse({'저장': '성공'})
+
+# 환율 데이터 출력하기
+@api_view(['GET'])
+def exchange_rate(request):
+    if request.method == 'GET':
+        exchage_rate_list = ExchangeRate.objects.all()
+        serializer = ExchangeRateSerializer(exchage_rate_list, many=True)
         return Response(serializer.data)

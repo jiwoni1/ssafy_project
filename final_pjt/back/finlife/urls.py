@@ -4,6 +4,10 @@ from . import views
 urlpatterns = [
     # 정기예금 데이터 db에 저장
     path('save-deposit-products/', views.save_deposit_products),
+
+    # 정기예금 옵션 데이터 db에 저장
+    
+
     # 정기예금 데이터 가져오기
     path('deposit-products/', views.deposit_products),
     
@@ -13,8 +17,9 @@ urlpatterns = [
     path('saving-products/', views.saving_products),
 
     # 환율 정보 가져오기
-    # path('exchange-rate/', views.exchange_rate),
+    path('exchange-rate/', views.exchange_rate),
 
-    # 은행 위치정보 가져오기
-    # path('find-bankmap/', views.find_bankmap),
+    # 환율 데이터 db에 저장
+    path('save-exchange-rate/', views.save_exchange_rate),
+
 ]

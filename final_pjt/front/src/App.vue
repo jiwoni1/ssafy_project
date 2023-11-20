@@ -1,9 +1,3 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import { useBankStore } from './stores/bank';
-const store = useBankStore()
-</script>
-
 <template>
   <header>
       <nav>
@@ -27,6 +21,26 @@ const store = useBankStore()
 
   <RouterView />
 </template>
+
+
+<script setup>
+import { onMounted } from 'vue'
+import { RouterLink, RouterView } from 'vue-router'
+import { useBankStore } from './stores/bank';
+const store = useBankStore()
+
+
+// 적금, 예금 데이터 DB에 저장해놓기
+onMounted(() => {
+  store.saveDeposit()
+  store.saveSaving()
+})
+
+
+
+
+</script>
+
 
 <style scoped>
 
