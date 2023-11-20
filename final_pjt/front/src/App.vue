@@ -1,5 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { useBankStore } from './stores/bank';
+const store = useBankStore()
 </script>
 
 <template>
@@ -11,10 +13,15 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink :to="{ name: 'BankMap' }">은행 지도</RouterLink> |
         <RouterLink :to="{ name: 'Article' }">커뮤니티</RouterLink> |
         <RouterLink :to="{ name: 'MyPage' }">MY PAGE</RouterLink> |
-        <RouterLink :to="{ name: 'SignUp' }">회원가입</RouterLink> |
-        <RouterLink :to="{ name: 'LogIn' }">로그인</RouterLink> |
-
-
+        <div v-if="store.isLogin">
+          <form @submit.prevent="store.logOut">
+            <input type="submit" value="로그아웃">
+          </form>
+        </div>
+        <div v-else>
+          <RouterLink :to="{ name: 'SignUp' }">회원가입</RouterLink> |
+          <RouterLink :to="{ name: 'LogIn' }">로그인</RouterLink>
+        </div>
       </nav>
   </header>
 

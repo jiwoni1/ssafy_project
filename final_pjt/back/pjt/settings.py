@@ -28,7 +28,6 @@ environ.Env.read_env(
 API_KEY = env('API_KEY')
 
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -72,7 +71,7 @@ INSTALLED_APPS = [
 # Token 인증을 기본으로 사용하도록 설정
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-    'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ]
 }
 
@@ -110,8 +109,6 @@ AUTHENTICATION_BACKENDS = (
 # django-allauth 패키지에서 제공하는 인증 백엔드 클래스.
 "allauth.account.auth_backends.AuthenticationBackend",
 )
-
-
 
 
 ROOT_URLCONF = 'pjt.urls'
@@ -190,7 +187,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # REST-AUTH 회원가입 기본 Serailizer 재정의
 REST_AUTH = {
 'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
+'JWT_AUTH_COOKIE' : 'access',
 }
 
+ACCOUNT_ADAPTER = 'accounts.models.CustomAccountAdapter'
 
 AUTH_USER_MODEL = 'accounts.User'

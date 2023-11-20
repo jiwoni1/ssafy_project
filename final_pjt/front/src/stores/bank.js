@@ -4,23 +4,29 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 
 export const useBankStore = defineStore('bank', () => {
-
+  // 토큰 생성
+  const API_URL = 'http://127.0.0.1:8000'
   const token = ref(null)
   const router = useRouter()
-
+  // 로그인 여부를 알 수 있는 변수
+  // 토근에 따라서, 토큰이 변할 때만 다시 계산되면 돼(computed)
+  const isLogin = computed(() => {
+    if (token.value === null) {
+      return false
+    } else {
+      return true
+    }
+  })
+  
   // 회원가입
   const signUp = function (payload) {
     // 2. 구조 분해 할당
-    const { username, password1, password2 } = payload
+    const { username, password1, password2, nickname, email, age, money, salary } = payload
     axios({
       method: 'post',
-      url: 'http://127.0.0.1:8000/accounts/signup/',
+      url: `${API_URL}/accounts/signup/`,
       data: {
-        // 1. 객체의 단축 속성
-        // username: payload.username,
-        // password1 : payload.password1
-        // password2 : payload.password2
-        username, password1, password2
+        username, password1, password2, nickname, email, age, money, salary
       }
     })
       .then((res) => {
@@ -40,10 +46,9 @@ export const useBankStore = defineStore('bank', () => {
 
   const logIn = function (payload) {
     const { username, password } = payload
-
     axios({
       method: 'post',
-      url: 'http://127.0.0.1:8000/accounts/login/',
+      url: `${API_URL}/accounts/login/`,
       data: {
         username, password
       }
@@ -60,16 +65,17 @@ export const useBankStore = defineStore('bank', () => {
 
   }
 
-  // const logOut = function () {
-  //   axios({
-  //     method: 'post',
-  //     url: 'http://127.0.0.1:8000/accounts/logout/'
-  //   })
-  //   .then(()=> {
-  //     console.log('로그아웃됨')
-  //   })
-  // }
+  const logOut = function () {
+    axios({
+      method: 'post',
+      url: `${API_URL}/accounts/logout/`
+    })
+    .then(()=> {
+      token.value = null
+      router.push({ name: 'Main' })
+    })
+  }
   
 
-  return { signUp, logIn, token }
-})
+  return { signUp, logIn, token, isLogin, logOut }
+}, { persist: true })

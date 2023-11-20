@@ -7,6 +7,8 @@ import MyPageView from '@/views/MyPageView.vue'
 import ChangeRateView from '@/views/ChangeRateView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import LogInView from '@/views/LogInView.vue'
+import DepositList from '@/components/DepositList.vue'
+import SavingList from '@/components/SavingList.vue'
 
 
 const router = createRouter({
@@ -52,6 +54,17 @@ const router = createRouter({
       name: 'LogIn',
       component: LogInView
     },
+
+    {
+      path: '/deposit',
+      name: 'deposit',
+      component: DepositList
+    },
+    {
+      path: '/saving',
+      name: 'saving',
+      component: SavingList
+    }
 
   ]
 })
