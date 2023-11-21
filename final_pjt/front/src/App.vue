@@ -67,6 +67,7 @@ onMounted(() => {
   bankStore.saveSaving()
   bankStore.getDeposit()
   bankStore.getSaving()
+  bankStore.GetExchangeRate()
 })
 
 

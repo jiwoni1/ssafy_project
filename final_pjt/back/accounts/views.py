@@ -7,8 +7,8 @@ from .serializers import UserSerializer
 
 # Create your views here.
 @api_view(['GET', 'PUT'])
-def user_data(request, user_pk):
-    user = get_object_or_404(User, pk=user_pk)
+def user_data(request, username):
+    user = get_object_or_404(User, username=username)
     if request.method == 'GET':
         serializer = UserSerializer(user)
         return Response(serializer.data)

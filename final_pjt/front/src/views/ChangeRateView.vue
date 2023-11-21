@@ -2,7 +2,7 @@
     <div>
         <h1>환율검색</h1>
         <select v-model="selected_country">
-            <option disabled value="">국가를 선택하세요.</option>
+            <option value="">국가를 선택하세요.</option>
             <option v-for="rate in store.exchangeRateDatas">{{ rate.cur_nm }}</option>
         </select>
         <br>

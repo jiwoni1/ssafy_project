@@ -77,20 +77,20 @@ export const useBankStore = defineStore('bank', () => {
   } 
 
 
-  // 환율 데이터 받아오기
-  const exchangeRateDatas = ref('')
-  const GetExchangeRate = function() {
+    // 환율 데이터 받아오기
+    const exchangeRateDatas = ref('')
+    const GetExchangeRate = function() {
     axios({
-      method: 'get',
-      url: `${API_URL}/finlife/exchange-rate/`
+        method: 'get',
+        url: `${API_URL}/finlife/exchange-rate/`
     })
     .then((res) => {
-      exchangeRateDatas.value = res.data
+        exchangeRateDatas.value = res.data
     })
     .catch((err) => {
-      console.log(err)
+        console.log(err)
     })
-  }
+    }
 
 
 

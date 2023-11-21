@@ -1,22 +1,20 @@
 <template>
+  <div id="container">
   <div class="login">
-    <h1 style="text-align: center;">Login</h1>
+    <div id="loginTitle">Login</div>
     <form @submit.prevent="logIn">
-      <div class="mb-3 row">
-        <label for="username" class="col-sm-2 col-form-label">USERNAME</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="id" v-model.trim="username">
+    <!-- 아이디, 비번, 버튼 박스 -->
+      <div class="inputBox">
+       
+          <div class="input-form-box"><span>아이디 </span><input type="text" name="id" class="form-control"></div>
+          <div class="input-form-box"><span>비밀번호 </span><input type="password" name="pw" class="form-control"></div>
+          <div class="button-login-box" >
+            <input type="submit" class="btn btn-primary btn-xs" style="width:100%" value="로그인">
+          </div>
         </div>
-      </div>
-      <div class="mb-3 row">
-        <label for="password" class="col-sm-2 col-form-label">PASSWORD</label>
-        <div class="col-sm-10">
-          <input type="password" class="form-control" id="password" v-model.trim="password">
-        </div>
-      </div>
-      <input type="submit" class="btn btn-primary mb-3">
     </form>
-  </div>
+    </div>
+    </div>
 </template>
 
 <script setup>
@@ -38,8 +36,57 @@ const logIn = function () {
 </script>
 
 <style>
-.login {
-  width: 60%;
-  margin: auto;
+* { padding: 0; margin: 0; }
+
+html, body {
+  height: 100%;
+  background: #ffffff;
 }
+
+#container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#loginBox {
+  width: 300px;
+  text-align: center;
+  background-color: #ffffff;
+}
+.input-form-box {
+  border: 0px solid #ff0000;
+  display: flex;
+  margin-bottom: 5px;
+}
+.input-form-box > span {
+  display: block;
+  text-align: left;
+  padding-top: 5px;
+  min-width: 65px;
+}
+.button-login-box {
+  margin: 10px 0;
+}
+#loginBoxTitle {
+  color:#000000;
+  font-weight: bold;
+  font-size: 32px;
+  text-transform: uppercase;
+  padding: 5px;
+  margin-bottom: 20px;
+  background: linear-gradient(to right, #270a09, #8ca6ce);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#inputBox {
+  margin: 10px;
+}
+
+#inputBox button {
+  padding: 3px 5px;
+}
+
 </style>
