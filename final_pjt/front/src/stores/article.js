@@ -121,9 +121,29 @@ export const useArticleStore = defineStore('article', () => {
   // }
 
 
+  // 유저 정보 받아오기
+  const userData = ref([])
+  const getUser = function (userId) {
+    axios({
+        method: 'GET',
+        url: `${API_URL}/accounts/user/${userId}`,
+        headers: {
+            Authorization: `Token ${token.value}`
+        }
+    })
+    .then((res) => {
+        console.log(res)
+        userData.value = res.data
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+  }
+
   
 
   return { 
     API_URL, token, isLogin, signUp, logIn, logOut,
-    articles, getArticles }
+    articles, getArticles,
+    getUser, userData }
 }, { persist: true })

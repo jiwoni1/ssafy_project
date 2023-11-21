@@ -1,10 +1,13 @@
 <template>
     <div>
-        <h1>마이 페이지</h1>
+        <RouterLink :to="{ name: 'Profile' }">회원 기본 정보</RouterLink>  |
+        <RouterLink :to="{ name: 'Portfolio' }">포트폴리오</RouterLink>
     </div>
+    <RouterView />
 </template>
 
 <script setup>
+import { RouterView, RouterLink} from 'vue-router'
 
 </script>
 

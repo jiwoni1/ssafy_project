@@ -1,17 +1,16 @@
 <template>
   <header>
-      <nav class="navbar navbar-expand-lg navber-light bg-light">
-        <div class="container">
-          <a class="navbar-brand" href="#">Your App</a>
+      <nav class="navbar navbar-expand-md" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/main">LOGO</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
+          <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
             <ul class="nav">
-
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <RouterLink :to="{ name: 'Main' }" class="nav-link">메인페이지</RouterLink>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <RouterLink :to="{ name: 'Product' }" class="nav-link">예적금 비교</RouterLink>
               </li>
@@ -24,22 +23,24 @@
               <li class="nav-item">
                 <RouterLink :to="{ name: 'Community' }" class="nav-link">커뮤니티</RouterLink>
               </li>
-              <div v-if="articleStore.isLogin">
-                <li class="nav-item">
+            </ul>
+            <ul class="nav">
+            
+                <li class="nav-item" v-if="articleStore.isLogin">
                   <RouterLink :to="{ name: 'MyPage' }" class="nav-link">MY PAGE</RouterLink>
                 </li>
-                  <form @submit.prevent="articleStore.logOut">
-                    <input type="submit" value="로그아웃">
-                  </form>
-              </div>
-              <div v-else>
-                <li class="nav-item">
+                <li class="nav-item" v-if="articleStore.isLogin">
+                    <form @submit.prevent="articleStore.logOut">
+                      <input type="submit" value="로그아웃">
+                    </form>
+                </li>
+              
+                <li class="nav-item" v-if="articleStore.isLogin === false">
                   <RouterLink :to="{ name: 'SignUp' }" class="nav-link">회원가입</RouterLink>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" v-if="articleStore.isLogin === false">
                   <RouterLink :to="{ name: 'LogIn' }" class="nav-link">로그인</RouterLink>
                 </li>
-              </div>
             </ul>
         </div>
       </div>

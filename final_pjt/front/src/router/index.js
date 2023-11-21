@@ -16,6 +16,10 @@ import AddProduct from '@/components/AddProduct.vue'
 import ArticleList from '@/components/ArticleList.vue'
 import ArticleCreate from '@/components/ArticleCreate.vue'
 
+// profile
+import Profile from '@/components/Profile.vue'
+import Portfolio from '@/components/Portfolio.vue'
+import Recommend from '@/components/Recommend.vue'
 
 
 const router = createRouter({
@@ -101,6 +105,17 @@ const router = createRouter({
       name: 'articleCreate',
       component: ArticleCreate
     },
+
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile
+    },
+    {
+      path: '/portfolio',
+      name: 'Portfolio',
+      component: Portfolio
+    }
 
   ]
 })

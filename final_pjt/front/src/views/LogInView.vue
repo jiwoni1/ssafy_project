@@ -3,7 +3,7 @@
     <h1 style="text-align: center;">Login</h1>
     <form @submit.prevent="logIn">
       <div class="mb-3 row">
-        <label for="id" class="col-sm-2 col-form-label">ID</label>
+        <label for="username" class="col-sm-2 col-form-label">USERNAME</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" id="id" v-model.trim="username">
         </div>
