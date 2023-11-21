@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h1>게시글</h1>
+        <h2>게시글 조회</h2>
+        <div></div>
     </div>
 </template>
 

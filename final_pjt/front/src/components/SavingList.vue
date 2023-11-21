@@ -56,7 +56,7 @@
             <div>
                 <table>
                     <tr>
-                        <th>공시 제출일</th>
+                        <th>공시 제출월</th>
                         <th>금융 회사명</th>
                         <th>상품명</th>
                         <th>기본 금리</th>
@@ -64,7 +64,8 @@
                     </tr>
                     <tr v-for="saving in filteredSavings"
                         :key="saving.id"
-                        :saving="saving">
+                        :saving="saving"
+                        @click="goSavingDetail(saving.id)">
                         <td><span>{{ saving.dcls_month }}</span></td>
                         <td><span>{{ saving.kor_co_nm }}</span></td>
                         <td><span>{{ saving.fin_prdt_nm }}</span></td>    
@@ -87,7 +88,7 @@
 
 <script setup>
 import { onMounted, ref, computed } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { useBankStore } from '@/stores/bank'
 
 const store = useBankStore()
@@ -96,11 +97,13 @@ const bank_selected = ref('')
 const period_selecte = ref('')
 const period_selected = ref('')
 
+const router = useRouter()
+
 
 // mount되기 전 예금 정보 DB에 저장하기
-onMounted(() => {
-    store.getSaving()
-})
+// onMounted(() => {
+//     store.getSaving()
+// })
 
 
 // 적금 검색
@@ -121,6 +124,11 @@ const change_option = function () {
     bank_selected.value = bank_selecte.value
     period_selected.value = period_selecte.value
     console.log(filteredSavings.value)
+}
+
+// 상품을 클릭하면 상세 페이지로 이동하는 함수
+const goSavingDetail = function (savingId) {
+    router.push({ name: 'savingDetail', params: { id: savingId }})
 }
 
 

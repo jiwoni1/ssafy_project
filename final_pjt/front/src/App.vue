@@ -1,21 +1,48 @@
 <template>
   <header>
-      <nav>
-        <RouterLink :to="{ name: 'Main' }">메인페이지</RouterLink> |
-        <RouterLink :to="{ name: 'Product' }">예적금 비교</RouterLink> |
-        <RouterLink :to="{ name: 'ChangeRate' }">환율 검색</RouterLink> |
-        <RouterLink :to="{ name: 'BankMap' }">은행 지도</RouterLink> |
-        <RouterLink :to="{ name: 'Article' }">커뮤니티</RouterLink> |
-        <RouterLink :to="{ name: 'MyPage' }">MY PAGE</RouterLink> |
-        <div v-if="articleStore.isLogin">
-          <form @submit.prevent="articleStore.logOut">
-            <input type="submit" value="로그아웃">
-          </form>
+      <nav class="navbar navbar-expand-lg navber-light bg-light">
+        <div class="container">
+          <a class="navbar-brand" href="#">Your App</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav">
+
+              <li class="nav-item">
+                <RouterLink :to="{ name: 'Main' }" class="nav-link">메인페이지</RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink :to="{ name: 'Product' }" class="nav-link">예적금 비교</RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink :to="{ name: 'ChangeRate' }" class="nav-link">환율 검색</RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink :to="{ name: 'BankMap' }" class="nav-link">은행 지도</RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink :to="{ name: 'Community' }" class="nav-link">커뮤니티</RouterLink>
+              </li>
+              <div v-if="articleStore.isLogin">
+                <li class="nav-item">
+                  <RouterLink :to="{ name: 'MyPage' }" class="nav-link">MY PAGE</RouterLink>
+                </li>
+                  <form @submit.prevent="articleStore.logOut">
+                    <input type="submit" value="로그아웃">
+                  </form>
+              </div>
+              <div v-else>
+                <li class="nav-item">
+                  <RouterLink :to="{ name: 'SignUp' }" class="nav-link">회원가입</RouterLink>
+                </li>
+                <li class="nav-item">
+                  <RouterLink :to="{ name: 'LogIn' }" class="nav-link">로그인</RouterLink>
+                </li>
+              </div>
+            </ul>
         </div>
-        <div v-else>
-          <RouterLink :to="{ name: 'SignUp' }">회원가입</RouterLink> |
-          <RouterLink :to="{ name: 'LogIn' }">로그인</RouterLink>
-        </div>
+      </div>
       </nav>
   </header>
 
@@ -37,6 +64,8 @@ const articleStore = useArticleStore()
 onMounted(() => {
   bankStore.saveDeposit()
   bankStore.saveSaving()
+  bankStore.getDeposit()
+  bankStore.getSaving()
 })
 
 

@@ -100,30 +100,30 @@ export const useArticleStore = defineStore('article', () => {
 
 
   // 게시글 생성
-  const createArticle = function() {
-    axios({
-        method: 'post',
-        url: `${API_URL}/articles/`,
-        data: {
-            title: title.value,
-            content: content.value,
-        },
-        headers: {
-            Authorization: `Token ${token.value}`
-        }
-    })
-    .then((res) => {
-        console.log(res)
-    })
-    .catch((err) => {
-        console.log(err)
-    })
-  }
+  // const createArticle = function() {
+  //   axios({
+  //       method: 'post',
+  //       url: `${API_URL}/articles/`,
+  //       data: {
+  //           title: title.value,
+  //           content: content.value,
+  //       },
+  //       headers: {
+  //           Authorization: `Token ${token.value}`
+  //       }
+  //   })
+  //   .then((res) => {
+  //       console.log(res)
+  //   })
+  //   .catch((err) => {
+  //       console.log(err)
+  //   })
+  // }
 
 
   
 
   return { 
     API_URL, token, isLogin, signUp, logIn, logOut,
-    articles, getArticles, createArticle }
+    articles, getArticles }
 }, { persist: true })

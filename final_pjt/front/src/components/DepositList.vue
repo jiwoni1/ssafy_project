@@ -52,7 +52,7 @@
             <div>
                 <table>
                     <tr>
-                        <th>공시 제출일</th>
+                        <th>공시 제출월</th>
                         <th>금융 회사명</th>
                         <th>상품명</th>
                         <th>기본 금리</th>
@@ -61,11 +61,10 @@
                     <!-- deposit : filteredDeposits의 반환값 -->
                     <tr v-for="deposit in filteredDeposits"
                         :key="deposit.id"
-                        @click="godDepositDetail(deposit.id)">
+                        @click="goDepositDetail(deposit.id)">
                         <td><span>{{ deposit.dcls_month }}</span></td>
                         <td><span>{{ deposit.kor_co_nm }}</span></td>
                         <td><span>{{ deposit.fin_prdt_nm }}</span></td>     
-                        <!-- <td><span>{{ deposit }}</span></td>  -->
                         <td><span>{{ deposit.depositoptions_set[0].intr_rate }}</span></td>  
                         <td><span>{{ deposit.depositoptions_set[0].intr_rate2 }}</span></td>             
         
@@ -99,9 +98,9 @@ const period_selected = ref('')
 
 
 // mount되기 전 예금 정보 DB에 저장하기
-onMounted(() => {
-    store.getDeposit()
-})
+// onMounted(() => {
+//     store.getDeposit()
+// })
 
 // 예금 검색
 // 필터링된 예금 정보 반환
@@ -124,7 +123,7 @@ const change_option = function () {
 }
 
 // 상품을 클릭하면 상세 페이지로 이동하는 함수
-const godDepositDetail = function (depositId) {
+const goDepositDetail = function (depositId) {
     router.push({ name: 'depositDetail', params: { id: depositId }})
 }
 

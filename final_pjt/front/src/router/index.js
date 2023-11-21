@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import MainView from '@/views/MainView.vue'
 import ProductView from '@/views/ProductView.vue'
 import BankMapView from '@/views/BankMapView.vue'
-import ArticleView from '@/views/ArticleView.vue'
+import CommunityView from '@/views/CommunityView.vue'
 import MyPageView from '@/views/MyPageView.vue'
 import ChangeRateView from '@/views/ChangeRateView.vue'
 import SignUpView from '@/views/SignUpView.vue'
@@ -11,6 +11,11 @@ import DepositList from '@/components/DepositList.vue'
 import SavingList from '@/components/SavingList.vue'
 import DepositDetail from '@/components/DepositDetail.vue'
 import SavingDetail from '@/components/SavingDetail.vue'
+import AddProduct from '@/components/AddProduct.vue'
+// article
+import ArticleList from '@/components/ArticleList.vue'
+import ArticleCreate from '@/components/ArticleCreate.vue'
+
 
 
 const router = createRouter({
@@ -37,9 +42,14 @@ const router = createRouter({
       component: ChangeRateView
     },
     {
-      path: '/article',
-      name: 'Article',
-      component: ArticleView
+      path: '/community',
+      name: 'Community',
+      component: CommunityView
+    },
+    {
+      path: '/articlelist',
+      name: 'ArticleList',
+      component: ArticleList
     },
     {
       path: '/mypage',
@@ -76,7 +86,20 @@ const router = createRouter({
     {
       path: '/saving/:id',
       name: 'savingDetail',
-      component: SavingDetail
+      component: SavingDetail,
+      props: true,
+    },
+    {
+      path: '/addproduct',
+      name: 'addProduct',
+      component: AddProduct
+    },
+
+
+    {
+      path: '/articlecreate',
+      name: 'articleCreate',
+      component: ArticleCreate
     },
 
   ]
