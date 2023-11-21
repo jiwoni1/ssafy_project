@@ -61,7 +61,7 @@
                     <!-- deposit : filteredDeposits의 반환값 -->
                     <tr v-for="deposit in filteredDeposits"
                         :key="deposit.id"
-                        :deposit="deposit">
+                        @click="godDepositDetail(deposit.id)">
                         <td><span>{{ deposit.dcls_month }}</span></td>
                         <td><span>{{ deposit.kor_co_nm }}</span></td>
                         <td><span>{{ deposit.fin_prdt_nm }}</span></td>     
@@ -84,12 +84,13 @@
 
 <script setup>
 import { onMounted, ref, computed } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { useBankStore } from '@/stores/bank'
 
 
-
 const store = useBankStore()
+const router = useRouter()
+
 const bank_selecte = ref('')
 const bank_selected = ref('')
 const period_selecte = ref('')
@@ -120,6 +121,11 @@ const change_option = function () {
     bank_selected.value = bank_selecte.value
     period_selected.value = period_selecte.value
     console.log(filteredDeposits.value)
+}
+
+// 상품을 클릭하면 상세 페이지로 이동하는 함수
+const godDepositDetail = function (depositId) {
+    router.push({ name: 'depositDetail', params: { id: depositId }})
 }
 
 

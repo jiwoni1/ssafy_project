@@ -7,8 +7,8 @@
         <RouterLink :to="{ name: 'BankMap' }">은행 지도</RouterLink> |
         <RouterLink :to="{ name: 'Article' }">커뮤니티</RouterLink> |
         <RouterLink :to="{ name: 'MyPage' }">MY PAGE</RouterLink> |
-        <div v-if="store.isLogin">
-          <form @submit.prevent="store.logOut">
+        <div v-if="articleStore.isLogin">
+          <form @submit.prevent="articleStore.logOut">
             <input type="submit" value="로그아웃">
           </form>
         </div>
@@ -26,14 +26,17 @@
 <script setup>
 import { onMounted } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
-import { useBankStore } from './stores/bank';
-const store = useBankStore()
+import { useBankStore } from './stores/bank'
+import { useArticleStore } from '@/stores/article'
+
+const bankStore = useBankStore()
+const articleStore = useArticleStore()
 
 
 // 적금, 예금 데이터 DB에 저장해놓기
 onMounted(() => {
-  store.saveDeposit()
-  store.saveSaving()
+  bankStore.saveDeposit()
+  bankStore.saveSaving()
 })
 
 

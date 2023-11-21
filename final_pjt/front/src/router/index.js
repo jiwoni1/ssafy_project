@@ -9,6 +9,8 @@ import SignUpView from '@/views/SignUpView.vue'
 import LogInView from '@/views/LogInView.vue'
 import DepositList from '@/components/DepositList.vue'
 import SavingList from '@/components/SavingList.vue'
+import DepositDetail from '@/components/DepositDetail.vue'
+import SavingDetail from '@/components/SavingDetail.vue'
 
 
 const router = createRouter({
@@ -64,7 +66,18 @@ const router = createRouter({
       path: '/saving',
       name: 'saving',
       component: SavingList
-    }
+    },
+    {
+      path: '/deposit/:id',
+      name: 'depositDetail',
+      component: DepositDetail,
+      props: true,
+    },
+    {
+      path: '/saving/:id',
+      name: 'savingDetail',
+      component: SavingDetail
+    },
 
   ]
 })
