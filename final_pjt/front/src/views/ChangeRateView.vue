@@ -1,6 +1,24 @@
 <template>
     <div>
-        <h1>환율검색</h1>
+        <div class="card">
+            <div class="card-header">환율 계산기</div>
+            <div class="card-body">
+                <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item">
+                        <select v-model="selected_country" class="form-select" aria-label="Default select example">
+                            <option value="">국가를 선택하세요.</option>
+                            <option v-for="rate in store.exchangeRateDatas">{{ rate.cur_nm }}</option>
+                        </select>
+                    </li>
+                    <li class="list-group-item"><input class="input" type="text" v-model="wonRate"></li>
+                </ul>
+            </div>
+        </div>
+
+
+
+
+        <!-- <h1>환율검색</h1>
         <select v-model="selected_country">
             <option value="">국가를 선택하세요.</option>
             <option v-for="rate in store.exchangeRateDatas">{{ rate.cur_nm }}</option>
@@ -8,7 +26,7 @@
         <br>
         <input type="text" v-model="otherRate">
         <br>
-        <input type="text" v-model="wonRate">
+        <input type="text" v-model="wonRate"> -->
      
     </div>
 </template>
@@ -59,5 +77,11 @@ const otherWatch = watch(otherRate, (newValue, oldValue) => {
 </script>
 
 <style scoped>
+.form-select {
+    border: none;
+}
 
+.input {
+    border: none;
+}
 </style>

@@ -77,6 +77,21 @@ export const useBankStore = defineStore('bank', () => {
   } 
 
 
+    // 환율 데이터 저장
+    const saveExchangeRate = function() {
+      axios({
+          method: 'get',
+          url: `${API_URL}/finlife/save-exchange-rate/`
+      })
+      .then((res) => {
+          console.log("환율 데이터 저장 완료")
+          console.log(res)
+      })
+      .catch((err) => {
+          console.log(err)
+      })
+      }
+
     // 환율 데이터 받아오기
     const exchangeRateDatas = ref('')
     const GetExchangeRate = function() {
@@ -86,17 +101,16 @@ export const useBankStore = defineStore('bank', () => {
     })
     .then((res) => {
         exchangeRateDatas.value = res.data
+        console.log("환율 데이터 로드 완료")
+        console.log(res)
     })
     .catch((err) => {
         console.log(err)
     })
     }
 
-
-
   
-
   return { 
     savings, deposits, saveDeposit, saveSaving, getDeposit, getSaving, 
-    exchangeRateDatas, GetExchangeRate }
+    exchangeRateDatas, GetExchangeRate, saveExchangeRate  }
 }, { persist: true })

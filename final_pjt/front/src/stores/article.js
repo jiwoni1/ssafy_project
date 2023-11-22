@@ -36,7 +36,8 @@ export const useArticleStore = defineStore('article', () => {
       }
     })
       .then(() => {
-        router.push({ name: 'Main' })
+        window.alert('회원가입이 완료되었습니다.')
+        router.push({ name: 'LogIn' })
       })
       .catch((err) => {
         console.log(err)
@@ -74,9 +75,11 @@ export const useArticleStore = defineStore('article', () => {
         .then((res) => {
             console.log(res)
             articles.value = res.data
+            console.log('게시글 조회 완료')
         })
         .catch((err) => {
             console.log(err)
+            console.log('게시글 조회 실패')
         })
     }
     
@@ -138,7 +141,7 @@ export const useArticleStore = defineStore('article', () => {
             userName.value = username
             console.log(userName.value)
             getUser()
-            router.push({ name: 'Product' })
+            router.push({ name: 'Main' })
         })
         .catch((err) => {
             console.log(err)

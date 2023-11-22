@@ -12,9 +12,13 @@ import SavingList from '@/components/SavingList.vue'
 import DepositDetail from '@/components/DepositDetail.vue'
 import SavingDetail from '@/components/SavingDetail.vue'
 import AddProduct from '@/components/AddProduct.vue'
+
 // article
 import ArticleList from '@/components/ArticleList.vue'
 import ArticleCreate from '@/components/ArticleCreate.vue'
+import ArticleDetail from '@/components/ArticleDetail.vue'
+import ArticleUpdate from '@/components/ArticleUpdate.vue'
+import CommentDetail from '@/components/CommentDetail.vue'
 
 // profile
 import Profile from '@/components/Profile.vue'
@@ -115,9 +119,41 @@ const router = createRouter({
       path: '/portfolio',
       name: 'Portfolio',
       component: Portfolio
-    }
+    },
+    {
+      path: '/articledetail/:id',
+      name: 'ArticleDetail',
+      component: ArticleDetail,
+
+    },
+    {
+      path: '/articleupdate/:id',
+      name: 'ArticleUpdate',
+      component: ArticleUpdate,
+      // props: true,
+    },
+    {
+      path: '/commentdetail',
+      name: 'CommentDetail',
+      component: CommentDetail,
+      props: true,
+    },
 
   ]
+})
+
+import { useArticleStore } from '@/stores/article.js'
+
+router.beforeEach((to, from) => {
+  const articleStore = useArticleStore()
+  if (to.name === 'Community' && !articleStore.isLogin) {
+    window.alert('로그인이 필요합니다.')
+    return { name: 'LogIn' }
+  }
+  // if ((to.name === 'SignUpView' || to.name === 'LogInView') && (articleStore.isLogin)) {
+  //   window.alert('이미 로그인 했습니다.')
+  //   return { name: 'ArticleView' }
+  // }
 })
 
 export default router

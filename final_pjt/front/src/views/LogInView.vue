@@ -6,8 +6,8 @@
     <!-- 아이디, 비번, 버튼 박스 -->
       <div class="inputBox">
        
-          <div class="input-form-box"><span>아이디 </span><input type="text" name="id" class="form-control"></div>
-          <div class="input-form-box"><span>비밀번호 </span><input type="password" name="pw" class="form-control"></div>
+          <div class="input-form-box"><span>아이디 </span><input type="text" name="id" class="form-control" v-model="username"></div>
+          <div class="input-form-box"><span>비밀번호 </span><input type="password" name="pw" class="form-control" v-model="password"></div>
           <div class="button-login-box" >
             <input type="submit" class="btn btn-primary btn-xs" style="width:100%" value="로그인">
           </div>
@@ -78,7 +78,7 @@ html, body {
   padding: 5px;
   margin-bottom: 20px;
   background: linear-gradient(to right, #270a09, #8ca6ce);
-  -webkit-background-clip: text;
+  /* -webkit-background-clip: text; */
   -webkit-text-fill-color: transparent;
 }
 #inputBox {

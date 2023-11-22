@@ -1,9 +1,15 @@
 <template>
-    <div>
-        <br>
-        <RouterLink :to="{ name: 'deposit' }">정기예금</RouterLink>  |
-        <RouterLink :to="{ name: 'saving' }">정기적금</RouterLink>
-    </div>
+    <nav class="navbar navbar-expand-lg">
+        <ul class="nav">
+            <li class="nav-item">
+                <RouterLink :to="{ name: 'deposit' }" class="nav-link">정기예금</RouterLink>
+            </li>
+            <li class="nav-item">
+                <RouterLink :to="{ name: 'saving' }" class="nav-link">정기적금</RouterLink>
+            </li>
+        </ul>
+    </nav>
+    <br>
     <div>
         <h1>정기예금</h1>        
             <h3>예금 검색하기</h3>
@@ -67,8 +73,9 @@
                         <td><span>{{ deposit.fin_prdt_nm }}</span></td>     
                         <td><span>{{ deposit.depositoptions_set[0].intr_rate }}</span></td>  
                         <td><span>{{ deposit.depositoptions_set[0].intr_rate2 }}</span></td>             
-        
+
                     </tr>
+                    <hr>
                     <tr v-if="filteredDeposits.length === 0">
                         <br>
                         <td>해당 상품은 없습니다.</td>
@@ -132,5 +139,7 @@ const goDepositDetail = function (depositId) {
 
 <style scoped>
 
-
+.nav-link{
+    color: green;
+}
 </style>

@@ -1,20 +1,28 @@
 <template>
+    <nav class="navbar navbar-expand-lg">
+        <ul class="nav">
+            <li class="nav-item">
+                <RouterLink :to="{ name: 'deposit' }" class="nav-link">정기예금</RouterLink>
+            </li>
+            <li class="nav-item">
+                <RouterLink :to="{ name: 'saving' }" class="nav-link">정기적금</RouterLink>
+            </li>
+        </ul>
+    </nav>
+    <br>
     <div>
-        <br>
-        <RouterLink :to="{ name: 'deposit' }">정기예금</RouterLink>  |
-        <RouterLink :to="{ name: 'saving' }">정기적금</RouterLink>
-    </div>
-
-    <div>
-        <h1>정기적금</h1>
-        <div>
-            <h3>적금 검색하기</h3>
-            <h4>검색 조건을 입력하세요</h4>
-            <hr>
+        <div class="row">
+            <div class="col-md-3" id="search">
+            
+            <h4>적금 검색하기</h4>
+            <h6>검색 조건을 입력하세요</h6>
+            <div class="text-success">
+                <hr>
+            </div>
             <div class="search_saving">
                 <label for="bank">은행을 선택하세요</label>
                     <div class="bank" id="bank">
-                        <select v-model="bank_selecte">
+                        <select v-model="bank_selecte" class="form-select form-select-md">
                             <option value="" selected>전체은행</option>
                             <option value="경남은행">경남은행</option>
                             <option value="국민은행">국민은행</option>
@@ -37,7 +45,7 @@
 
                     <label for="period">예치기간</label>
                     <div class="period" id="period">
-                        <select v-model="period_selecte">
+                        <select v-model="period_selecte" class="form-select form-select-md">
                             <option value="">전체기간</option>
                             <option value="6">6개월</option>
                             <option value="12">12개월</option>
@@ -48,41 +56,42 @@
 
                     <br>
 
-                <button @click="change_option">확인</button>
+                <button @click="change_option" class="btn btn-light">확인</button>
             </div>
+            </div>    
                 
-                
-            </div>
-            <div>
-                <table>
-                    <tr>
-                        <th>공시 제출월</th>
-                        <th>금융 회사명</th>
-                        <th>상품명</th>
-                        <th>기본 금리</th>
-                        <th>최고 금리</th>
-                    </tr>
-                    <tr v-for="saving in filteredSavings"
-                        :key="saving.id"
-                        :saving="saving"
-                        @click="goSavingDetail(saving.id)">
-                        <td><span>{{ saving.dcls_month }}</span></td>
-                        <td><span>{{ saving.kor_co_nm }}</span></td>
-                        <td><span>{{ saving.fin_prdt_nm }}</span></td>    
-                        <td><span>{{ saving.savingoptions_set[0].intr_rate }}</span></td> 
-                        <td><span>{{ saving.savingoptions_set[0].intr_rate2 }}</span></td>            
-                    </tr>
+            
+            <div class="col-md-9" id="search">
+                <table class="table">
+                    <thead>
+                        <tr class="table-success">
+                            <th scope="col">공시 제출월</th>
+                            <th scope="col">금융 회사명</th>
+                            <th scope="col">상품명</th>
+                            <th scope="col">기본 금리</th>
+                            <th scope="col">최고 금리</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="saving in filteredSavings"
+                            :key="saving.id"
+                            :saving="saving"
+                            @click="goSavingDetail(saving.id)">
+                            <td>{{ saving.dcls_month }}</td>
+                            <td>{{ saving.kor_co_nm }}</td>
+                            <td>{{ saving.fin_prdt_nm }}</td>    
+                            <td>{{ saving.savingoptions_set[0].intr_rate }}</td> 
+                            <td>{{ saving.savingoptions_set[0].intr_rate2 }}</td>         
+                        </tr>
+                    </tbody>
                     <tr v-if="filteredSavings.length === 0">
                         <br>
                         <td>해당 상품은 없습니다.</td>
                     </tr>
-
-
-    
-            </table>
-        </div>
+                </table>
+            </div>
         
-
+        </div>
     </div>
 </template>
 
@@ -136,5 +145,10 @@ const goSavingDetail = function (savingId) {
 </script>
 
 <style scoped>
+.nav-link{
+    color: green;
+}
+
+
 
 </style>

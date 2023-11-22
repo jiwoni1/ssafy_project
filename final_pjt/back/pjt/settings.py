@@ -54,8 +54,6 @@ INSTALLED_APPS = [
 
     # REST_AUTH
     'dj_rest_auth',
-    'allauth',
-    'allauth.account',
 
     # CORS
     'corsheaders',
@@ -66,7 +64,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
 ]
+
+SITE_ID = 1
 
 # Token 인증을 기본으로 사용하도록 설정
 REST_FRAMEWORK = {

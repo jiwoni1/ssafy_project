@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -11,7 +12,7 @@ from .serializers import ArticleSerializer, CommentSerializer, ArticleListSerial
 def article_list_create(request):
     # 전체 게시글 조회
     if request.method == 'GET':
-        articles = get_list_or_404(Article)
+        articles = Article.objects.all()
         serializer = ArticleListSerializer(articles, many=True)
         return Response(serializer.data)
     # 게시글 생성
@@ -44,13 +45,13 @@ def article_detail(request, article_pk):
         
         
     
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 def comment_create(request, article_pk):
     # 댓글 생성
     article = get_object_or_404(Article, pk=article_pk)
     serializer = CommentSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
-        serializer.save(article=article)
+        serializer.save(article=article, user=request.user)
         return Response(serializer.data)
     
 

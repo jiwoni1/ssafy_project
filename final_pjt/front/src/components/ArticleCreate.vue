@@ -15,23 +15,29 @@
 import axios from 'axios'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useArticleStore } from '@/stores/article'
 
 const router = useRouter()
+const store = useArticleStore()
+
 const title = ref(null)
 const content = ref(null)
 
 const createArticle = function () {
     axios({
         method: 'post',
-        url: 'http://127.0.0.1:8000/api/v1/articles/',
+        url: `${store.API_URL}/articles/`,
         data: {
             title: title.value,
             content: content.value,
+        },
+        headers: {
+            Authorization: `Token ${store.token}`
         }
     })
         .then((res) => {
             console.log(res)
-            router.push({ name: "article" })
+            router.push({ name: "ArticleList" })
         })
 }
 

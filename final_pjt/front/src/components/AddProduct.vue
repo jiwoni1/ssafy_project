@@ -1,19 +1,18 @@
 <template>
     <div>
+        <!-- 가입한 상품 목록 -->
         <h1>가입한 상품들</h1>
         <div v-if="addedDeposits" 
              v-for="product in addedDeposits"
-             :key="product.id"
-             @click="goDepositDetail(product.id)">
-            <p>{{ product.kor_co_nm }} - {{ product.fin_prdt_nm }}</p>
+             :key="product.id">
+            <p @click="goDepositDetail(product.id)">{{ product.kor_co_nm }} - {{ product.fin_prdt_nm }}</p>
             <button @click="removeDeposit(product)">가입 해지</button>
             <hr>
         </div>
         <div v-if="addedSavings" 
              v-for="product in addedSavings"
-             :key="product.id"
-             @click="goSavingDetail(product.id)">
-            <p>{{ product.kor_co_nm }} - {{ product.fin_prdt_nm }}</p>
+             :key="product.id">
+            <p @click="goSavingDetail(product.id)">{{ product.kor_co_nm }} - {{ product.fin_prdt_nm }}</p>
             <button @click="removeSaving(product)">가입 해지</button>
             <hr>
         </div>
@@ -21,12 +20,25 @@
         <div v-if="!addedDeposits && !addedSavings">
             <strong>가입한 상품이 없습니다.</strong>
         </div>
+
+
+
+        <!-- 가입한 상품 금리 -->
+        <div style="width: 400px; height:500px;">
+            <Bar id="myChart" :options="chartOptions" :data="chartData"/>
+        </div>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+
+// 차트 제작
+import { Bar } from 'vue-chartjs'
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+
 
 const addedDeposits = ref([])
 const addedSavings = ref([])
@@ -35,6 +47,7 @@ const router = useRouter()
 
 // localStorage에서 가입한 상품 가져오기
 addedDeposits.value = JSON.parse(localStorage.getItem('deposit')) || []
+console.log(typeof(addedDeposits.value[0].depositoptions_set[0].intr_rate))
 addedSavings.value =  JSON.parse(localStorage.getItem('saving')) || []
 
 // 가입한 상품 삭제
@@ -82,6 +95,47 @@ const goDepositDetail = function (depositId) {
 const goSavingDetail = function (savingId) {
     router.push({ name: 'savingDetail', params: { id: savingId }})
 }
+
+
+
+// 가입한 상품 금리 그래프
+// 그래프 가로 축 => 상품명
+const productName = addedDeposits.value.map((product) =>{
+    return product.fin_prdt_nm
+})
+// 그래프 세로 축 => 금리
+const productRate = addedDeposits.value.map((rate) => {
+    return rate.depositoptions_set[0].intr_rate
+})
+
+// 차트에 들어갈 데이터
+const chartData = ref({
+    labels: productName,
+    datasets: [
+        {
+            label: ['Sample Chart'],
+            backgroundColor: 'lightGreen',
+            data: productRate,
+        }
+    ]
+})
+
+// 차트 옵션
+const chartOptions = ref({
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: { // defining min and max so hiding the dataset does not change scale range
+        min: 0,
+        max: 5
+      }
+    },
+    
+})
+
+
+// })
+
 </script>
 
 <style scoped>
