@@ -1,24 +1,29 @@
 <template>
-    <nav class="navbar navbar-expand-lg">
-        <ul class="nav">
-            <li class="nav-item">
-                <RouterLink :to="{ name: 'deposit' }" class="nav-link">정기예금</RouterLink>
-            </li>
-            <li class="nav-item">
-                <RouterLink :to="{ name: 'saving' }" class="nav-link">정기적금</RouterLink>
-            </li>
-        </ul>
-    </nav>
-    <br>
+    <!--예금 검색창-->
     <div>
-        <h1>정기예금</h1>        
-            <h3>예금 검색하기</h3>
-            <h4>검색 조건을 입력하세요</h4>
-            <hr>
-            <div class="search_deposit">
-                <label for="bank">은행을 선택하세요</label>
+        <div class="row">
+            <div class="col-md-3" id="search">       
+                <!--적금상품과 예금상품 선택링크-->
+                <nav>
+                    <ul class="nav nav-tabs nav-justified">
+                        <li class="nav-item">
+                            <RouterLink :to="{ name: 'deposit' }" class="nav-link">정기예금</RouterLink>
+                        </li>
+                        <li class="nav-item">
+                            <RouterLink :to="{ name: 'saving' }" class="nav-link">정기적금</RouterLink>
+                        </li>
+                    </ul>
+                </nav>
+                <br>
+                <h4>예금 검색하기</h4>
+                <h6>검색 조건을 입력하세요</h6>
+                <div class="text-success">
+                    <hr>
+                </div>
+                <div class="search_deposit">
+                    <label for="bank">은행을 선택하세요</label>
                     <div class="bank" id="bank">
-                        <select v-model="bank_selecte">
+                        <select v-model="bank_selecte" class="form-select form-select-md">
                             <option value="" selected>전체은행</option>
                             <option value="경남은행">경남은행</option>
                             <option value="국민은행">국민은행</option>
@@ -36,12 +41,10 @@
                             <option value="한국산업은행">한국산업은행</option>
                         </select>
                     </div>
-
                     <br>
-
                     <label for="period">예치기간</label>
                     <div class="period" id="period">
-                        <select v-model="period_selecte">
+                        <select v-model="period_selecte" class="form-select form-select-md">
                             <option value="">전체기간</option>
                             <option value="6">6개월</option>
                             <option value="12">12개월</option>
@@ -49,42 +52,44 @@
                             <option value="24">24개월</option>
                         </select>
                     </div>
-
                     <br>
-
-                <button @click="change_option">확인</button>
+                    <button @click="change_option" class="btn btn-light" style="float:right;">확인</button>
+                </div>
             </div>
-                
-            <div>
-                <table>
-                    <tr>
-                        <th>공시 제출월</th>
-                        <th>금융 회사명</th>
-                        <th>상품명</th>
-                        <th>기본 금리</th>
-                        <th>최고 금리</th>
-                    </tr>
-                    <!-- deposit : filteredDeposits의 반환값 -->
-                    <tr v-for="deposit in filteredDeposits"
-                        :key="deposit.id"
-                        @click="goDepositDetail(deposit.id)">
-                        <td><span>{{ deposit.dcls_month }}</span></td>
-                        <td><span>{{ deposit.kor_co_nm }}</span></td>
-                        <td><span>{{ deposit.fin_prdt_nm }}</span></td>     
-                        <td><span>{{ deposit.depositoptions_set[0].intr_rate }}</span></td>  
-                        <td><span>{{ deposit.depositoptions_set[0].intr_rate2 }}</span></td>             
+        
 
-                    </tr>
-                    <hr>
-                    <tr v-if="filteredDeposits.length === 0">
-                        <br>
-                        <td>해당 상품은 없습니다.</td>
-                    </tr>
-        
-        
+            <div class="col-md-9" id="search">
+                <table class="table">
+                    <thead>
+                        <tr class="table-success">
+                            <th scope="col">공시 제출월</th>
+                            <th scope="col">금융 회사명</th>
+                            <th scope="col">상품명</th>
+                            <th scope="col">기본 금리</th>
+                            <th scope="col">최고 금리</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- deposit : filteredDeposits의 반환값 -->
+                        <tr v-for="deposit in filteredDeposits"
+                            :key="deposit.id"
+                            @click="goDepositDetail(deposit.id)">
+                            <td>{{ deposit.dcls_month }}</td>
+                            <td>{{ deposit.kor_co_nm }}</td>
+                            <td>{{ deposit.fin_prdt_nm }}</td>     
+                            <td>{{ deposit.depositoptions_set[0].intr_rate }}</td>  
+                            <td>{{ deposit.depositoptions_set[0].intr_rate2 }}</td>             
+
+                        </tr>
+                        <hr>
+                        <tr v-if="filteredDeposits.length === 0">
+                            <br>
+                            <td>해당 상품은 없습니다.</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
-        
+        </div>
     </div>
 </template>
 

@@ -23,7 +23,7 @@
 
 
 
-        <!-- 가입한 상품 금리 -->
+        <!-- 가입한 상품 금리 차트 -->
         <div style="width: 400px; height:500px;">
             <Bar id="myChart" :options="chartOptions" :data="chartData"/>
         </div>
@@ -31,14 +31,16 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useBankStore } from '@/stores/bank'
 
 // 차트 제작
 import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
+const store = useBankStore()
 
 const addedDeposits = ref([])
 const addedSavings = ref([])
@@ -98,24 +100,61 @@ const goSavingDetail = function (savingId) {
 
 
 
+// 그래프에 들어갈 데이터 가져오기
 // 가입한 상품 금리 그래프
 // 그래프 가로 축 => 상품명
-const productName = addedDeposits.value.map((product) =>{
-    return product.fin_prdt_nm
+const allProducts = ref(addedDeposits.value.concat(addedSavings.value))
+const productName = computed(() => {
+  const names = allProducts.value.map(product => product.fin_prdt_nm);
+  names.unshift('평균 금리');
+  return names
 })
-// 그래프 세로 축 => 금리
-const productRate = addedDeposits.value.map((rate) => {
-    return rate.depositoptions_set[0].intr_rate
-})
+
+// 그래프 세로 축1 => 금리
+const depositRate1 = computed(() =>
+  addedDeposits.value.map(rate => rate.depositoptions_set[0].intr_rate)
+);
+const savingRate1 = computed(() =>
+  addedSavings.value.map(rate => rate.savingoptions_set[0].intr_rate)
+);
+const mergedDepositRate1 = computed(() => [...depositRate1.value, ...savingRate1.value]);
+
+// 그래프 세로 축2 => 최고 우대 금리
+const depositRate2 = computed(() =>
+  addedDeposits.value.map(rate => rate.depositoptions_set[0].intr_rate2)
+);
+const savingRate2 = computed(() =>
+  addedSavings.value.map(rate => rate.savingoptions_set[0].intr_rate2)
+);
+const mergedDepositRate2 = computed(() => [...depositRate2.value, ...savingRate2.value]);
+
+// 전체 상품 금리 평균 구하기
+const allDeposits = computed(() => store.deposits.map(rate => rate.depositoptions_set[0].intr_rate));
+const allSavings = computed(() => store.savings.map(rate => rate.savingoptions_set[0].intr_rate));
+const allRate = computed(() => [...allDeposits.value, ...allSavings.value]);
+const avgrate = computed(() => allRate.value.reduce((acc, cur) => acc + cur, 0) / allRate.value.length);
+
+// 전체 상품 최고 우대 금리 평균 구하기
+const allDeposits2 = computed(() => store.deposits.map(rate => rate.depositoptions_set[0].intr_rate2));
+const allSavings2 = computed(() => store.savings.map(rate => rate.savingoptions_set[0].intr_rate2));
+const allRate2 = computed(() => [...allDeposits2.value, ...allSavings2.value]);
+const avgrate2 = computed(() => allRate2.value.reduce((acc, cur) => acc + cur, 0) / allRate2.value.length);
+mergedDepositRate1.value.unshift(avgrate.value)
+mergedDepositRate2.value.unshift(avgrate2.value)
 
 // 차트에 들어갈 데이터
 const chartData = ref({
-    labels: productName,
+    labels: productName.value,
     datasets: [
         {
-            label: ['Sample Chart'],
+            label: ['저축 금리'],
             backgroundColor: 'lightGreen',
-            data: productRate,
+            data: mergedDepositRate1.value,
+        },
+        {
+            label: ['최고 우대 금리'],
+            backgroundColor: 'lightblue',
+            data: mergedDepositRate2.value,
         }
     ]
 })
@@ -132,9 +171,6 @@ const chartOptions = ref({
     },
     
 })
-
-
-// })
 
 </script>
 

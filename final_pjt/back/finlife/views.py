@@ -3,6 +3,8 @@ import requests
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.conf import settings 
 from django.http import JsonResponse
+from datetime import datetime
+from django.utils.dateformat import DateFormat
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -140,7 +142,7 @@ def saving_products(request):
 @api_view(['GET'])
 def save_exchange_rate(request):
     api_key = settings.EXCHANGE_RATE_API_KEY
-    search_date = 20180102
+    search_date = int(DateFormat(datetime.now()).format('Ymd'))
     url = f' https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey={api_key}&searchdate={search_date}&data=AP01'
     response = requests.get(url).json()
 
@@ -150,7 +152,7 @@ def save_exchange_rate(request):
             'cur_nm': li.get('cur_nm'),                         # 국가/통화명
             'deal_bas_r': li.get('deal_bas_r').replace(',','')  # 환율
         }
-        if ExchangeRate.objects.filter(deal_bas_r=save_data['deal_bas_r']).exists():
+        if ExchangeRate.objects.filter(cur_unit=save_data['cur_unit']).exists():
             continue
         else:
             serializer = ExchangeRateSerializer(data=save_data)

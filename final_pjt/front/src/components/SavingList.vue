@@ -1,26 +1,27 @@
 <template>
-    <nav class="navbar navbar-expand-lg">
-        <ul class="nav">
-            <li class="nav-item">
-                <RouterLink :to="{ name: 'deposit' }" class="nav-link">정기예금</RouterLink>
-            </li>
-            <li class="nav-item">
-                <RouterLink :to="{ name: 'saving' }" class="nav-link">정기적금</RouterLink>
-            </li>
-        </ul>
-    </nav>
-    <br>
+    <!--적금 검색창-->
     <div>
         <div class="row">
             <div class="col-md-3" id="search">
-            
-            <h4>적금 검색하기</h4>
-            <h6>검색 조건을 입력하세요</h6>
-            <div class="text-success">
-                <hr>
-            </div>
-            <div class="search_saving">
-                <label for="bank">은행을 선택하세요</label>
+                <!--적금상품과 예금상품 선택링크-->
+                <nav>
+                    <ul class="nav nav-tabs nav-justified">
+                        <li class="nav-item">
+                            <RouterLink :to="{ name: 'deposit' }" class="nav-link">정기예금</RouterLink>
+                        </li>
+                        <li class="nav-item">
+                            <RouterLink :to="{ name: 'saving' }" class="nav-link">정기적금</RouterLink>
+                        </li>
+                    </ul>
+                </nav>
+                <br>
+                <h4>적금 검색하기</h4>
+                <h6>검색 조건을 입력하세요</h6>
+                <div class="text-success">
+                    <hr>
+                </div>
+                <div class="search_saving">
+                    <label for="bank">은행을 선택하세요</label>
                     <div class="bank" id="bank">
                         <select v-model="bank_selecte" class="form-select form-select-md">
                             <option value="" selected>전체은행</option>
@@ -40,9 +41,7 @@
                             <option value="한국산업은행">한국산업은행</option>
                         </select>
                     </div>
-
                     <br>
-
                     <label for="period">예치기간</label>
                     <div class="period" id="period">
                         <select v-model="period_selecte" class="form-select form-select-md">
@@ -53,14 +52,11 @@
                             <option value="24">24개월</option>
                         </select>
                     </div>
-
                     <br>
-
-                <button @click="change_option" class="btn btn-light">확인</button>
-            </div>
+                    <button @click="change_option" class="btn btn-light">확인</button>
+                </div>
             </div>    
-                
-            
+            <!--조회된 상품 리스트-->         
             <div class="col-md-9" id="search">
                 <table class="table">
                     <thead>
@@ -83,14 +79,13 @@
                             <td>{{ saving.savingoptions_set[0].intr_rate }}</td> 
                             <td>{{ saving.savingoptions_set[0].intr_rate2 }}</td>         
                         </tr>
+                        <tr v-if="filteredSavings.length === 0">
+                            <br>
+                            <td>해당 상품은 없습니다.</td>
+                        </tr>
                     </tbody>
-                    <tr v-if="filteredSavings.length === 0">
-                        <br>
-                        <td>해당 상품은 없습니다.</td>
-                    </tr>
                 </table>
             </div>
-        
         </div>
     </div>
 </template>
