@@ -18,6 +18,7 @@ import ArticleList from '@/components/ArticleList.vue'
 import ArticleCreate from '@/components/ArticleCreate.vue'
 import ArticleDetail from '@/components/ArticleDetail.vue'
 import ArticleUpdate from '@/components/ArticleUpdate.vue'
+import ArticlePreview from '@/components/ArticlePreview.vue'
 import CommentDetail from '@/components/CommentDetail.vue'
 
 // profile
@@ -131,6 +132,11 @@ const router = createRouter({
       name: 'ArticleUpdate',
       component: ArticleUpdate,
       // props: true,
+    },
+    {
+      path: '/articlepreview',
+      name: 'ArticlePreview',
+      component: ArticlePreview,
     },
     {
       path: '/commentdetail',

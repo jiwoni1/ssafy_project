@@ -3,14 +3,14 @@
         <h1>커뮤니티</h1>
         <br>
         <div>
-            <h3 @click="goArticleList">게시판</h3>
+            <h2 @click="goArticleList">게시판</h2>
+            <hr>
+            <!-- 게시글 한 3개정도만 나오게 -->
             <div v-if="store.articles"
-            v-for="article in store.articles"
-            :key="article.id"
-            :article="article">
-                <span>{{ article.title }} - {{ article }}</span>
-                <!-- <span>{{ store.userData.nickname }}</span> -->
-    
+            v-for="num in store.articles.length"
+            :key="num"
+            :article="num">
+                <ArticlePreview :articleId="num"/>
             </div>
             <div v-else>
                 <p>게시글이 없습니다.</p>
@@ -27,7 +27,8 @@
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useArticleStore } from '@/stores/article'
-import ArticleList from '@/components/ArticleList.vue'
+// import ArticleList from '@/components/ArticleList.vue'
+import ArticlePreview from '@/components/ArticlePreview.vue'
 
 const router = useRouter()
 const store = useArticleStore()

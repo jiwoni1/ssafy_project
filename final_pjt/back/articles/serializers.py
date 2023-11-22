@@ -1,9 +1,16 @@
 from .models import Article, Comment
-from accounts.serializers import UserSerializer
+from accounts.serializers import UserSerializer, CustomRegisterSerializer
 from accounts.models import User
 from rest_framework import serializers
 
 class CommentSerializer(serializers.ModelSerializer):
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = '__all__'
+
+    user = UserSerializer(read_only=True)
+
     class Meta:
         model = Comment
         fields = '__all__'
@@ -17,7 +24,7 @@ class ArticleSerializer(serializers.ModelSerializer):
             model = User
             fields = '__all__'
 
-
+    user = UserSerializer(read_only=True)
     comment_set = CommentSerializer(many=True, read_only=True) 
     comment_count = serializers.IntegerField(source='comment_set.count', read_only=True)
     
@@ -29,14 +36,7 @@ class ArticleSerializer(serializers.ModelSerializer):
 
 # 게시글 전체 조회 시 사용
 class ArticleListSerializer(serializers.ModelSerializer):
-    class UserSerializer(serializers.ModelSerializer):
-         class Meta:
-            model = User
-            fields = '__all__'
-
-
-    user_set = UserSerializer(many=True, read_only=True)
     class Meta:
         model = Article
-        fields = ('id', 'title', 'content', 'user_set')
+        fields = ('id', 'title', 'content')
 
