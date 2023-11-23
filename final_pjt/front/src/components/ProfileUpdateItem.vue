@@ -9,10 +9,6 @@
                 <!-- <br> -->
                 <p>ID</p>
                 <hr>
-                <!-- <br> -->
-                <!-- <p>이메일</p>
-                <hr> -->
-                <!-- <br> -->
                 <p>닉네임</p>
                 <hr>
                 <!-- <br> -->
@@ -31,48 +27,76 @@
                 <!-- <br> -->
                 <p>{{ articleStore.userData.username }}</p>
                 <hr>
-                <!-- <br> -->
-                <!-- <div class="row email">
-                    <p class="col-md-10" v-if="articleStore.userData.emai">{{ articleStore.userData.email }}</p>
-                    <p class="col-md-10" v-else>이메일 없음</p>
-                </div> -->
-                <!-- <hr> -->
-                <!-- <br> -->
+
                 <div class="row nickname">
-                    <p class="col-md-10">{{ articleStore.userData.nickname }}</p>
+                    <input class="col-md-10" type="text" v-model="nickname">
                 </div>
                 <hr>
                 <!-- <br> -->
                 <div class="row age">
-                    <p class="col-md-10">{{ articleStore.userData.age }}</p>
+                    <input class="col-md-10" type="text" v-model="age">
                 </div>
                 <hr>
                 <!-- <br> -->
                 <div class="row money">
-                    <p class="col-md-10">{{ articleStore.userData.money }} 만원</p>
+                    <input class="col-md-10" type="text" v-model="money">
+                    <span class="col-md-1">만원</span>
                 </div>
                 <hr>
                 <!-- <br> -->
                 <div class="row salary">
-                    <p class="col-md-10">{{ articleStore.userData.salary }} 만원</p>
+                    <input class="col-md-10" type="text" v-model="salary">
+                    <span class="col-md-1">만원</span>
                 </div>
             </div>
         </div>
         <div class="update-button">
-            <div class="col-md-2 btn btn-success" @click="proUpdate">수정</div>
+            <div class="col-md-2 btn btn-success" @click="proUpdated(articleStore.userData.username)">등록</div>
         </div>
     </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useArticleStore } from '@/stores/article'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
+import { storeToRefs } from 'pinia';
 
 const articleStore = useArticleStore()
 const router = useRouter()
 
-const proUpdate = function () {
-    router.push({ name: 'ProfileUpdate' })
+
+const nickname = ref(articleStore.userData.nickname)
+const age = ref(articleStore.userData.age)
+const money = ref(articleStore.userData.money)
+const salary = ref(articleStore.userData.salary)
+const password = ref(articleStore.userData.password)
+
+const proUpdated = function (username) {
+    axios({
+        method: 'put',
+        url:`${articleStore.API_URL}/accounts/user/${username}/`,
+        data: {
+
+            nickname: nickname.value,
+            age: age.value,
+            salary: salary.value,
+            money: money.value,
+            username: username,
+            password: password.value
+        }
+    })
+    .then((res) => {
+        console.log('유저 정보 수정 완료')
+        console.log(res)
+        articleStore.getUser()
+        router.push({ name: 'MyPage' })
+    })
+    .catch((err) => {
+        console.log('유저 정보 수정 실패')
+        console.log(err)
+    })
 }
 
 </script>

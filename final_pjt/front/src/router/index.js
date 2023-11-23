@@ -24,6 +24,9 @@ import CommentDetail from '@/components/CommentDetail.vue'
 import Profile from '@/components/Profile.vue'
 import Portfolio from '@/components/Portfolio.vue'
 import Recommend from '@/components/Recommend.vue'
+import ProfileUpdate from '@/components/ProfileUpdate.vue'
+import ProfileUpdateItem from '@/components/ProfileUpdateItem.vue'
+import AddProductSide from '@/components/AddProductSide.vue'
 
 
 const router = createRouter({
@@ -142,6 +145,21 @@ const router = createRouter({
       name: 'recommend',
       component: Recommend,
       props: true,
+    },
+    {
+      path: '/profileupdate',
+      name: 'ProfileUpdate',
+      component: ProfileUpdate,
+    },
+    {
+      path: '/profileupdateitem',
+      name: 'ProfileUpdateItem',
+      component: ProfileUpdateItem,
+    },
+    {
+      path: '/addproductside',
+      name: 'AddProductSide',
+      component: AddProductSide,
     },
 
   ]

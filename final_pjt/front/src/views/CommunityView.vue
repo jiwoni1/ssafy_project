@@ -1,11 +1,13 @@
 <template>
     <div class="community-template">
         <h1 id="title">커뮤니티</h1>
+        <hr>
+        <br>
         <br>
         <div>
             <div class="table">
-                <h4 class="sub-title">게시판</h4>
-                <button class="btn btn-success" @click="createArticle">게시글 생성</button>
+                <h3 class="sub-title">게시판</h3>
+                <button class="btn btn-success btn-lg" @click="createArticle" id="btn">게시글 생성</button>
             </div>
         <hr>
         <div>
@@ -59,6 +61,7 @@ const createArticle = function () {
 #title {
     color: rgb(102, 175, 102);
     font-weight: bold;
+    font-size: 50px;
 }
 
 #search {
@@ -72,5 +75,14 @@ const createArticle = function () {
 .table {
     display: flex;
     justify-content: space-between;
+}
+
+#btn {
+    background-color: rgb(102, 175, 102);
+    border : rgb(102, 175, 102)
+}
+
+hr {
+    color: rgb(102, 175, 102);
 }
 </style>

@@ -126,6 +126,7 @@ export const useArticleStore = defineStore('article', () => {
             userName.value = username
             console.log(userName.value)
             getUser()
+            getUsers()
             router.push({ name: 'Main' })
         })
         .catch((err) => {
@@ -147,9 +148,11 @@ export const useArticleStore = defineStore('article', () => {
       .then((res) => {
         console.log(res)
         usersData.value = res.data
+        console.log('추천상품 저장')
       })
       .catch((err) => {
         console.log(err)
+        console('추천상품 저장 실패')
       })
     }
   

@@ -2,7 +2,9 @@
   <header>
     <nav id="navbar" class="navbar navbar-expand-md">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/">LOGO</a>
+        <a class="navbar-brand" href="/">
+          <img class="logo" src="../public/tita.png" alt="">
+        </a>
 
         <!-- 토글 버튼 -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,7 +21,7 @@
               <RouterLink :to="{ name: 'ChangeRate' }" class="nav-link">환율 검색</RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink :to="{ name: 'BankMap' }" class="nav-link">은행 지도</RouterLink>
+              <RouterLink :to="{ name: 'BankMap' }" class="nav-link">은행 찾기</RouterLink>
             </li>
             <li class="nav-item">
               <RouterLink :to="{ name: 'Community' }" class="nav-link">커뮤니티</RouterLink>
@@ -107,6 +109,10 @@ onMounted(() => {
 hr {
   z-index: 0;
   margin: 0px;
+}
+.logo {
+  width: 100px;
+  height: 40px;
 }
 
 
