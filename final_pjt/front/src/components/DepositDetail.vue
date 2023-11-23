@@ -1,11 +1,7 @@
 <template>
     <div>
         <h1>정기예금 상세</h1>
-        <!-- <p>name : {{ props.id  }}</p> -->
-        <!-- <p>{{ bankStore.deposits }}</p> -->
-
         <div v-for="deposit in bankStore.deposits">
-            <!-- props.id는 문자 -->
             <div v-if="props.id == deposit.id">
                 <p>공시 제출월 : {{ deposit.dcls_month }}</p>
                 <p>금융회사명 : {{ deposit.kor_co_nm }}</p>
@@ -19,13 +15,14 @@
                 <p>저축 금리 : {{ deposit.depositoptions_set[0].intr_rate }}</p>
                 <p>최고 우대금리 : {{ deposit.depositoptions_set[0].intr_rate2 }}</p>
                 <p>만기 후 이자율 : {{ deposit.mtrt_int }}</p>
-                <button v-if="articleStore.isLogin" @click="addDepositProduct(deposit)">가입하기</button>
+                <button v-if="articleStore.isLogin" @click="addDepositProduct(deposit)">{{ isRegistered(deposit) }}</button>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useBankStore } from '@/stores/bank'
 import { useArticleStore } from '@/stores/article'
@@ -33,13 +30,19 @@ import { useArticleStore } from '@/stores/article'
 const bankStore = useBankStore()
 const articleStore = useArticleStore()
 const router = useRouter()
+const registerd = ref(false)
+const registeredDeposits = ref([])
+
 
 
 const props = defineProps({
     id: String,
 })
 
-// console.log(router.params.id)
+const getRegisteredDepositsFromStorage = () => {
+  const existingProducts = JSON.parse(localStorage.getItem('deposit')) || []
+  registeredDeposits.value = existingProducts
+}
 
 // 장바구니 기능
 const addDepositProduct = (deposit) => {
@@ -51,6 +54,7 @@ const addDepositProduct = (deposit) => {
     if(!isDuplicate) {
         alert('해당 상품에 가입합니다.')
         existingProduct.push(deposit)
+        registerd.value = true
     } else {
         alert('이미 가입된 상품입니다.')
     }
@@ -58,10 +62,20 @@ const addDepositProduct = (deposit) => {
     // 수정된 카트 데이터를 localStorage에 저장
     localStorage.setItem('deposit', JSON.stringify(existingProduct))
 
-    // router.push({ name: 'addProduct' })
+    router.go(0)
+
 }
 
 
+const isRegistered = (deposit) => {
+  const isDuplicate = registeredDeposits.value.some((item) => item.id === deposit.id)
+  return isDuplicate ? '가입완료' : '가입하기'
+}
+
+onMounted(() => {
+  const existingProducts = JSON.parse(localStorage.getItem('deposit')) || []
+  registeredDeposits.value = existingProducts
+})
 
 
 

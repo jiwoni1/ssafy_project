@@ -1,6 +1,6 @@
 <template>
     <!--적금 검색창-->
-    <div>
+    <div class="saving-template">
         <div class="row">
             <div class="col-md-3" id="search">
                 <!--적금상품과 예금상품 선택링크-->
@@ -15,8 +15,8 @@
                     </ul>
                 </nav>
                 <br>
-                <h4>적금 검색하기</h4>
-                <h6>검색 조건을 입력하세요</h6>
+                <h3 id="title">적금 검색하기</h3>
+                <p style="color:rgb(102, 175, 102);">검색 조건을 입력하세요</p>
                 <div class="text-success">
                     <hr>
                 </div>
@@ -53,7 +53,7 @@
                         </select>
                     </div>
                     <br>
-                    <button @click="change_option" class="btn btn-light">확인</button>
+                    <button @click="change_option" class="btn btn-light" style="float:right;">확인</button>
                 </div>
             </div>    
             <!--조회된 상품 리스트-->         
@@ -142,6 +142,22 @@ const goSavingDetail = function (savingId) {
 <style scoped>
 .nav-link{
     color: green;
+}
+
+#title {
+    color: rgb(102, 175, 102);
+    font-weight: bold;
+}
+.nav-link{
+    color: green;
+}
+.saving-template {
+    padding: 3% 5%;
+}
+
+label {
+    margin: 10px 0px;
+    color: rgb(102, 175, 102);
 }
 
 

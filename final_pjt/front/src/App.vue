@@ -50,7 +50,7 @@
       </div>
 
     </nav>
-    <hr class="border border-success border-1 opacity-50">
+    <hr class="border border-success border-0.5 opacity-50">
   </header>
 
   <RouterView />
@@ -74,7 +74,7 @@ onMounted(() => {
   bankStore.getDeposit()
   bankStore.getSaving()
   bankStore.saveExchangeRate()
-  bankStore.GetExchangeRate()
+  // bankStore.GetExchangeRate()
 })
 
 
@@ -93,4 +93,22 @@ onMounted(() => {
 .nav-link {
   color: black;
 }
+
+/* CSS 파일에 추가 */
+#navbar {
+  padding: 70px 50px 50px;
+}
+
+#navbarSupportedContent {
+    background-color: white; /* 원하는 배경색으로 변경하세요 */
+    padding: 10px; /* 내려오는 메뉴의 여백을 조절할 수 있습니다 */
+    z-index: 1;
+}
+hr {
+  z-index: 0;
+  margin: 0px;
+}
+
+
+
 </style>

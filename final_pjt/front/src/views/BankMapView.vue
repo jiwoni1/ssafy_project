@@ -1,29 +1,41 @@
 <template>
-    <div>
-        <h1>은행 찾기</h1>
-        
-        <select class="form-select" aria-label="Default select example" id="bigArea" v-model="selectBigArea">
-            <option value="">시/도를 선택하세요.</option>
-            <option v-for="bigarea in Object.keys(areas)" :value="bigarea">{{ bigarea }}</option>
-        </select>
-        <select class="form-select" aria-label="Default select example" id="smallArea" v-model="selectMiddleArea">
-            <option value="">시/구를 선택하세요.</option>
-            <option v-for="smallarea in selectSmallArea" :value="smallarea">{{ smallarea }}</option>
-        </select>
-        <select class="form-select" aria-label="Default select example" id="bank" v-model="selectBank">
-            <option value="">은행을 선택하세요.</option>
-            <option value="하나은행">하나은행</option>
-            <option value="국민은행">국민은행</option>
-            <option value="SC제일은행">SC제일은행</option>
-            <option value="신한은행">신한은행</option>
-            <option value="우리은행">우리은행</option>
-            <option value="외환은행">외환은행</option>
-            <option value="한국시티은행">한국시티은행</option>
-            <option value="기업은행">기업은행</option>
-            <option value="농협">농협</option>
-        </select>
-        <button @click="search">검색</button>
-        <div id="map" style="width: 500px;height: 400px;"></div>
+    <div class="bank-template">
+        <div>
+            <!-- 검색창 -->
+            <div>
+                <h3 id="title">은행 검색</h3>
+                <p style="color:rgb(102, 175, 102);">검색 조건을 선택하세요.</p>
+                <hr style="color:rgb(73, 134, 73);">
+                <select class="form-select" aria-label="Default select example" id="bigArea" v-model="selectBigArea">
+                    <option value="">시/도를 선택하세요.</option>
+                    <option v-for="bigarea in Object.keys(areas)" :value="bigarea">{{ bigarea }}</option>
+                </select>
+                <br>
+                <select class="form-select" aria-label="Default select example" id="smallArea" v-model="selectMiddleArea">
+                    <option value="">시/구를 선택하세요.</option>
+                    <option v-for="smallarea in selectSmallArea" :value="smallarea">{{ smallarea }}</option>
+                </select>
+                <br>
+                <select class="form-select" aria-label="Default select example" id="bank" v-model="selectBank">
+                    <option value="">은행을 선택하세요.</option>
+                    <option value="하나은행">하나은행</option>
+                    <option value="국민은행">국민은행</option>
+                    <option value="SC제일은행">SC제일은행</option>
+                    <option value="신한은행">신한은행</option>
+                    <option value="우리은행">우리은행</option>
+                    <option value="외환은행">외환은행</option>
+                    <option value="한국시티은행">한국시티은행</option>
+                    <option value="기업은행">기업은행</option>
+                    <option value="농협">농협</option>
+                </select>
+                <br>
+                <button @click="search" class="btn btn-light" style="float:right;">검색</button>
+                <br>
+            </div>
+            <br>
+            <div id="map" style="width: 100%; height: 550px;"></div>
+         
+        </div>
     </div>
 </template>
 
@@ -123,5 +135,17 @@ function displayMarker(place) {
 </script>
 
 <style scoped>
+.bank-template {
+    padding: 5% 20%;
+}
+
+#title {
+    color: rgb(102, 175, 102);
+    font-weight: bold;
+}
+
+#search {
+    border-right: solid 1px rgb(102, 175, 102);
+}
 
 </style>

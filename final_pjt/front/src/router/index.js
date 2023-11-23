@@ -14,7 +14,6 @@ import SavingDetail from '@/components/SavingDetail.vue'
 import AddProduct from '@/components/AddProduct.vue'
 
 // article
-import ArticleList from '@/components/ArticleList.vue'
 import ArticleCreate from '@/components/ArticleCreate.vue'
 import ArticleDetail from '@/components/ArticleDetail.vue'
 import ArticleUpdate from '@/components/ArticleUpdate.vue'
@@ -54,11 +53,6 @@ const router = createRouter({
       path: '/community',
       name: 'Community',
       component: CommunityView
-    },
-    {
-      path: '/articlelist',
-      name: 'ArticleList',
-      component: ArticleList
     },
     {
       path: '/mypage',
