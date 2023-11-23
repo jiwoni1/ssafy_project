@@ -5,7 +5,7 @@
                 <RouterLink style="color: rgb(125, 193, 125);" :to="{ name: 'MyPage' }">회원 기본 정보</RouterLink>
             </div>
             <div class="router">
-                <RouterLink style="color: gray;" :to="{ name: 'addProduct' }">포트폴리오</RouterLink>
+                <RouterLink style="color: gray;" :to="{ name: 'AddProductSide' }">가입한 상품</RouterLink>
             </div>
             <div class="router">
                 <RouterLink style="color: gray;" :to="{ name: 'recommend' }">상품 추천 받기</RouterLink>

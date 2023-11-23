@@ -16,22 +16,24 @@
             </div>
         </div>  
         <div class="col-md-10">
-            <h3 id="h3">적금 및 예금 상품 추천</h3>
+            <h1 id="h1">적금 및 예금 상품 추천</h1>
             <hr>
                 
-            <h6 class="gray">{{ articleStore.userData.username }}님과 비슷한 나이, 연봉, 재산을 가진 사람들이 많이 가입한 상품입니다.</h6>
+            <h6 class="gray"><strong>{{ articleStore.userData.nickname }}</strong>님과 비슷한 <strong>나이, 연봉, 재산</strong>을 가진 사람들이 많이 가입한 상품입니다.</h6>
             <br>
-            <div v-if="articleStore.userData.length > 0">
+            <div v-if="articleStore.usersData.same_product.length > 0">
                 <div v-for="data in articleStore.usersData.same_product" :key="data.id">
                     <div v-for="saving in savings">
                         <div v-if="data===saving.fin_prdt_cd">
                             <div>[정기적금] {{ saving.kor_co_nm }} - {{ saving.fin_prdt_nm }}</div>
+                            <hr>
                             <br>
                         </div>
                     </div>
                     <div v-for="deposit in deposits">
                         <div v-if="data===deposit.fin_prdt_cd">
                             <div>[정기예금] {{ deposit.kor_co_nm }} - {{ deposit.fin_prdt_nm }}</div>
+                            <hr>
                             <br>
                         </div>
                     </div>
@@ -61,7 +63,7 @@ const deposits = bankStore.deposits
     padding: 5% 7%;
 }
 
-#h3 {
+#h1 {
     color: rgb(102, 175, 102);
     font-weight: bold;
 }

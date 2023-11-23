@@ -7,7 +7,7 @@
            
             <!-- 수정하기 -->
             <div class="router">
-                <RouterLink style="color: gray;" :to="{ name: 'AddProductSide' }">포트폴리오</RouterLink>
+                <RouterLink style="color: gray;" :to="{ name: 'AddProductSide' }">가입한 상품</RouterLink>
             </div>
             <!-- 수정하기 -->
             <div class="router">

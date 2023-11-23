@@ -24,14 +24,16 @@ def user_data(request, username):
 def users_data(request):
     users = get_list_or_404(User)
     products_set = set()
-
+    print(request.user)
     # 나이대, 연봉, 재산이 비슷한 사람
     for user in users:
         if abs(user.age - request.user.age) < 7 and abs(user.money - request.user.money) < 10000000 and abs(user.salary - request.user.salary) < 100000000:
+            print(user.financial_products)
             if user.financial_products:
                 product = set(map(str, user.financial_products.split(',')))
+                print(product)
                 products_set.update(product)
-
+    print(products_set)
     products = {
         'same_product' : list(products_set)
     }
