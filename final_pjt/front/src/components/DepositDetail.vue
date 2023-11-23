@@ -7,7 +7,7 @@
                 <p>금융회사명 : {{ deposit.kor_co_nm }}</p>
                 <p>상품명 : {{ deposit.fin_prdt_nm }}</p>
                 <p>가입제한 : {{ deposit.join_deny }}</p>
-                <p>가입대상  : {{ deposit.spcl_cnd }}</p>
+                <p>가입대상  : {{ deposit.join_member }}</p>
                 <p>가입 방법 : {{ deposit.join_way }}</p>
                 <p v-if="deposit.spcl_cnd">우대 조건 : {{ deposit.spcl_cnd }}</p>
                 <p v-if="deposit.ect_note">기타 유의사항 : {{ deposit.ect_note }}</p>

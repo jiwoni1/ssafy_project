@@ -14,6 +14,9 @@ export const useArticleStore = defineStore('article', () => {
   const token = ref(null)
   const userName = ref('')
   const articles = ref([])
+  const errmsg = ref('')
+  const errlogin = ref('')
+  const usersData = ref([])
 
   // 로그인 여부를 알 수 있는 변수
   const isLogin = computed(() => {
@@ -40,7 +43,9 @@ export const useArticleStore = defineStore('article', () => {
         router.push({ name: 'LogIn' })
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err.request.response)
+        // errmsg.value = err.request.response
+        errmsg.value = 'no'
       })
   }
 
@@ -84,26 +89,6 @@ export const useArticleStore = defineStore('article', () => {
     }
     
     
-// 게시글 생성
-// const createArticle = function() {
-//   axios({
-//       method: 'post',
-//       url: `${API_URL}/articles/`,
-//       data: {
-//           title: title.value,
-//           content: content.value,
-//       },
-//       headers: {
-//           Authorization: `Token ${token.value}`
-//       }
-//   })
-//   .then((res) => {
-//       console.log(res)
-//   })
-//   .catch((err) => {
-//       console.log(err)
-//   })
-// }
                             
                             
     // 유저 정보 받아오기
@@ -145,13 +130,32 @@ export const useArticleStore = defineStore('article', () => {
         })
         .catch((err) => {
             console.log(err)
+            errlogin.value = 'no'
         })
     
+    }
+
+    // 추천 상품 정보 받아오기
+    const getUsers = function () {
+      axios({
+        method: 'get',
+        url: `${API_URL}/accounts/user/`,
+        headers: {
+          Authorization: `Token ${token.value}`
+        }
+      })
+      .then((res) => {
+        console.log(res)
+        usersData.value = res.data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     }
   
 
   return { 
     API_URL, token, isLogin, signUp, logIn, logOut,
     articles, getArticles,
-    getUser, userData, userName }
+    getUser, userData, userName, errmsg, errlogin, getUsers, usersData }
 }, { persist: true })

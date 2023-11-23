@@ -125,7 +125,6 @@ const router = createRouter({
       path: '/articleupdate/:id',
       name: 'ArticleUpdate',
       component: ArticleUpdate,
-      // props: true,
     },
     {
       path: '/articlepreview',
@@ -136,6 +135,12 @@ const router = createRouter({
       path: '/commentdetail',
       name: 'CommentDetail',
       component: CommentDetail,
+      props: true,
+    },
+    {
+      path: '/recommend',
+      name: 'recommend',
+      component: Recommend,
       props: true,
     },
 
@@ -150,10 +155,6 @@ router.beforeEach((to, from) => {
     window.alert('로그인이 필요합니다.')
     return { name: 'LogIn' }
   }
-  // if ((to.name === 'SignUpView' || to.name === 'LogInView') && (articleStore.isLogin)) {
-  //   window.alert('이미 로그인 했습니다.')
-  //   return { name: 'ArticleView' }
-  // }
 })
 
 export default router

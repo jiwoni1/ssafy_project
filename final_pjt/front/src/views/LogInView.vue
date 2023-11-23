@@ -12,6 +12,9 @@
             <input type="submit" class="btn btn-primary btn-xs" style="width:100%" value="로그인">
           </div>
         </div>
+        <div v-if="store.errlogin">
+          {{ errlogin() }}
+        </div>
     </form>
     </div>
     </div>
@@ -19,9 +22,11 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useArticleStore } from '@/stores/article'
 
 const store = useArticleStore()
+const router = useRouter()
 const username = ref(null)
 const password = ref(null)
 
@@ -33,6 +38,13 @@ const logIn = function () {
   // 호출하면서 payload를 전달
   store.logIn(payload)
 }
+
+const errlogin = function () {
+  window.alert('해당하는 로그인 정보가 없습니다.')
+  store.errlogin = ''
+  router.go(0)
+}
+
 </script>
 
 <style>

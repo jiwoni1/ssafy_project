@@ -96,8 +96,8 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed } from 'vue'
-import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { ref, computed } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
 import { useBankStore } from '@/stores/bank'
 
 
@@ -109,12 +109,6 @@ const bank_selected = ref('')
 const period_selecte = ref('')
 const period_selected = ref('')
 
-
-
-// mount되기 전 예금 정보 DB에 저장하기
-// onMounted(() => {
-//     store.getDeposit()
-// })
 
 // 예금 검색
 // 필터링된 예금 정보 반환

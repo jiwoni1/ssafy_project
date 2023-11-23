@@ -11,7 +11,7 @@
                 <p>금융회사명 : {{ saving.kor_co_nm }}</p>
                 <p>상품명 : {{ saving.fin_prdt_nm }}</p>
                 <p>가입제한 : {{ saving.join_deny }}</p>
-                <p>가입대상  : {{ saving.spcl_cnd }}</p>
+                <p>가입대상  : {{ saving.join_member }}</p>
                 <p>가입 방법 : {{ saving.join_way }}</p>
                 <p v-if="saving.ect_note">기타 유의사항 : {{ saving.ect_note }}</p>
                 <p v-if="saving.spcl_cnd">우대 조건 : {{ saving.spcl_cnd }}</p>

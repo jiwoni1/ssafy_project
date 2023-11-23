@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -18,5 +18,23 @@ def user_data(request, username):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
+
+# 모든 유저 정보 조회
+@api_view(['GET'])
+def users_data(request):
+    users = get_list_or_404(User)
+    products_set = set()
+
+    # 나이대, 연봉, 재산이 비슷한 사람
+    for user in users:
+        if abs(user.age - request.user.age) < 7 and abs(user.money - request.user.money) < 10000000 and abs(user.salary - request.user.salary) < 100000000:
+            if user.financial_products:
+                product = set(map(str, user.financial_products.split(',')))
+                products_set.update(product)
+
+    products = {
+        'same_product' : list(products_set)
+    }
+    return Response(products)
 
     

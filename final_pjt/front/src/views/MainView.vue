@@ -22,21 +22,45 @@
             </button>
         </div>
         <div class="go">
-        <div class="go-deposit">
-            <p>예금 상품 비교 바로가기</p>
+        <div class="go-deposit" @click="goDeposit">
+            <div class="depo-word">
+                <p>예금 비교 바로가기</p>
+            </div>
+            <img class="pig" src="../../public/pig.png" alt="">
         </div>
-        <div class="go-exchange"></div>
-        <div class="go-recommend"></div>
+        <div class="go-exchange" @click="goExchange">
+            <div class="depo-word">
+                <p>환율 정보 바로가기</p>
+            </div>
+            <img class="money" src="../../public/money.png" alt="">
+        </div>
+        <div class="go-recommend" @click="goRecommend">
+            <div class="depo-word">
+                <p>금융상품 추천 바로가기</p>
+            </div>
+            <img class="recommend" src="../../public/recommend.png" alt="">
+        </div>
     </div>
     </div>
 </template>
 
 
 <script setup>
-// const getImage = function () {
-//     return new URL('@/images/pubao.png', import.meta.url)
-// }
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
+
+const goDeposit = function () {
+    router.push({ name: 'deposit'})
+}
+
+const goExchange = function () {
+    router.push({ name: 'ChangeRate'})
+}
+
+const goRecommend = function () {
+    router.push({ name: 'recommend'})
+}
 </script>
 
 
@@ -47,14 +71,37 @@ img {
 }
 
 .go {
-    margin: 100px 0;
+    margin: 100px 100px;
+    justify-content: space-around;
     display: flex;
     flex-direction: row;
+    height: 300px;
 }
 .go-deposit, .go-exchange, .go-recommend{
     border: 1px solid lightgray;
-    width: 300px;
+    width: 500px;
     height: 150px;
+    margin: 0 10px;
+    text-align: center;
+    /* background-color: lightgray; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.depo-word {
+    width: 180px;
+    /* background-color: rgb(255, 255, 255);
+    border-radius: 20%; */
+    text-align: center;
+    font-weight: bold;
+    margin: 5px
+}
+.pig, .money, .recommend {
+    width: 90px;
+    height: 90px;
     margin: 10px;
+
 }
 </style>

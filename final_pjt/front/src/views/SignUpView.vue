@@ -41,7 +41,7 @@
       <div class="mb-3 row">
         <label for="money" class="col-sm-2 col-form-label">재산 : </label>
           <div class="col-sm-10">
-            <input type="text" id="money" class="form-control" v-model.trim="money">
+            <input type="text" id="money" class="form-control" v-model.trim="money" placeholder="만원">
           </div>
       </div>
       <div class="mb-3 row">
@@ -51,6 +51,9 @@
         </div>
       </div>
       <input type="submit"  class="btn btn-primary mb-3">
+      <div v-if="store.errmsg">
+        {{ errmsg() }}
+      </div>
     </form>
   </div>
 </template>
@@ -59,6 +62,7 @@
 
 import { ref } from 'vue'
 import { useArticleStore } from '@/stores/article'
+import router from '../router';
 
 const store = useArticleStore()
 const username = ref(null)
@@ -84,6 +88,11 @@ const signUp = function () {
    store.signUp(payload)
   }
 
+const errmsg = function () {
+  window.alert('폼에 맞게 다시 작성해주세요.(아이디 중복 or 비밀번호 양식)')
+  store.errmsg = ''
+  router.go(0)
+}
 </script>
 
 <style>
