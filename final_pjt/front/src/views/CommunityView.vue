@@ -1,13 +1,13 @@
 <template>
     <div class="community-template">
-        <h1 id="title">커뮤니티</h1>
+        <h2 id="title">커뮤니티</h2>
         <hr>
         <br>
         <br>
         <div>
             <div class="table">
-                <h3 class="sub-title">게시판</h3>
-                <button class="btn btn-success btn-lg" @click="createArticle" id="btn">게시글 생성</button>
+                <h4 class="sub-title">게시판</h4>
+                <button class="btn btn-success btn-md" @click="createArticle" id="btn">게시글 생성</button>
             </div>
         <hr>
         <div>
@@ -61,7 +61,7 @@ const createArticle = function () {
 #title {
     color: rgb(102, 175, 102);
     font-weight: bold;
-    font-size: 50px;
+
 }
 
 #search {

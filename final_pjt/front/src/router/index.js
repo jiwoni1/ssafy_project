@@ -22,7 +22,6 @@ import CommentDetail from '@/components/CommentDetail.vue'
 
 // profile
 import Profile from '@/components/Profile.vue'
-import Portfolio from '@/components/Portfolio.vue'
 import Recommend from '@/components/Recommend.vue'
 import ProfileUpdate from '@/components/ProfileUpdate.vue'
 import ProfileUpdateItem from '@/components/ProfileUpdateItem.vue'
@@ -112,11 +111,6 @@ const router = createRouter({
       path: '/profile',
       name: 'Profile',
       component: Profile
-    },
-    {
-      path: '/portfolio',
-      name: 'Portfolio',
-      component: Portfolio
     },
     {
       path: '/articledetail/:id',

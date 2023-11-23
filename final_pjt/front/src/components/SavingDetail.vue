@@ -1,28 +1,90 @@
 <template>
-    <div>
-        <h1>정기적금 상세</h1>
-        <!-- <p>name : {{ props.id  }}</p> -->
-        <!-- <p>{{ bankStore.deposits }}</p> -->
+    <div class="detail-template">
+        <h1 id="h1">상품 상세 정보</h1>
+        <hr>
+        <table class="table">
+            <div v-for="saving in bankStore.savings">
+                <div v-if="props.id == saving.id">
+                    <tbody>
+                        <tr>
+                            <th scope="col">공시 제출월</th>
+                            <td>{{ saving.dcls_month }}</td>
+                        </tr>
+                        <br>
+                        <br>
+                        <tr>
+                            <th scope="col">금융 회사명</th>
+                            <td>{{ saving.kor_co_nm }}</td>
+                        </tr>
+                        <br>
+                        <br>
+                        <tr>
+                            <th scope="col">상품명</th>
+                            <td>{{ saving.fin_prdt_nm }}</td>
+                        </tr>
+                        <br>
+                        <br>
+                        <tr>
+                            <th scope="col">가입 제한</th>
+                            <td>{{ saving.join_deny }} (1:제한없음, 2:서민전용, 3:일부제한)</td>
+                        </tr>
+                        <br>
+                        <br>
+                        <tr>
+                            <th scope="col">가입 대상</th>
+                            <td>{{ saving.join_member }}</td>
+                        </tr>
+                        <br>
+                        <br>
+                        <tr>
+                            <th scope="col">가입 방법</th>
+                            <td>{{ saving.join_way }}</td>
+                        </tr>
+                        <br>
+                        <br>
+                        <tr v-if="saving.spcl_cnd">
+                            <th scope="col">우대 조건</th>
+                            <td>{{ saving.spcl_cnd }}</td>
+                        </tr>
+                        <br>
+                        
+                        <tr v-if="saving.ect_note">
+                            <th scope="col">최고 금리</th>
+                            <td>{{ saving.ect_note }}</td>
+                        </tr>
+                        <br>
+                        <br>
+                        <tr>
+                            <th scope="col">저축 기간</th>
+                            <td>{{ saving.savingoptions_set[0].save_trm }}</td>
+                        </tr>
+                        <br>
+                        <br>
+                        <tr>   
+                            <th scope="col">저축 금리</th>
+                            <td>{{ saving.savingoptions_set[0].intr_rate }}</td>
+                        </tr>
+                        <br>
+                        <br>
+                        <tr>
+                            <th scope="col">최고 우대금리</th>
+                            <td>{{ saving.savingoptions_set[0].intr_rate2 }}</td>
+                        </tr>
+                        <br>
+                        <br>
+                        <tr> 
+                            <th>만기 후 이자율</th>
+                            <td>{{ saving.mtrt_int }}</td>            
+                        </tr>
+                        <br>
+                        <br>
 
-        <div v-for="saving in bankStore.savings">
-            <!-- props.id는 문자 -->
-            <div v-if="props.id == saving.id">
-                <p>공시 제출월 : {{ saving.dcls_month }}</p>
-                <p>금융회사명 : {{ saving.kor_co_nm }}</p>
-                <p>상품명 : {{ saving.fin_prdt_nm }}</p>
-                <p>가입제한 : {{ saving.join_deny }}</p>
-                <p>가입대상  : {{ saving.join_member }}</p>
-                <p>가입 방법 : {{ saving.join_way }}</p>
-                <p v-if="saving.ect_note">기타 유의사항 : {{ saving.ect_note }}</p>
-                <p v-if="saving.spcl_cnd">우대 조건 : {{ saving.spcl_cnd }}</p>
-                <p>적립 유형명 : {{  saving.rsrv_type_nm }}</p>
-                <p>저축 기간 : {{ saving.savingoptions_set[0].save_trm }}</p>
-                <p>저축 금리 : {{ saving.savingoptions_set[0].intr_rate }}</p>
-                <p>최고 우대금리 : {{ saving.savingoptions_set[0].intr_rate2 }}</p>
-                <p>만기 후 이자율 : {{ saving.mtrt_int }}</p>
-                <button v-if="articleStore.isLogin" @click="addSavingProduct(saving)">가입하기</button>
+                    </tbody>
+                    <br>
+                    <button v-if="articleStore.isLogin" @click="addSavingProduct(saving)" class="btn btn-outline-success btn-lg" id="btn">가입하기</button>
+                </div>
             </div>
-        </div>
+        </table>
     </div>
 </template>
 
@@ -69,14 +131,35 @@ const addSavingProduct = (saving) => {
 }
 
 
-
-
-
-
-
-
 </script>
 
 <style scoped>
+.detail-template {
+    padding: 5% 15%;
+}
+
+#h1 {
+    color: rgb(102, 175, 102);
+    font-weight: bold;
+}
+
+tr > th {
+    width: 20%;
+    text-align: center;
+    color: rgb(81, 81, 81);
+}
+
+tr > td {
+    color: rgb(89, 89, 89);
+}
+
+.table {
+    margin: 5% 0px 2%;
+}
+
+#btn {
+    color : rgb(102, 175, 102);
+    float :right;
+}
 
 </style>

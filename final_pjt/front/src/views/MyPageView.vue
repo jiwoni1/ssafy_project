@@ -4,12 +4,10 @@
             <div class="router">
                 <RouterLink style="color: rgb(125, 193, 125);" :to="{ name: 'MyPage' }">회원 기본 정보</RouterLink>
             </div>
-            <div class="router">
-                <RouterLink style="color: gray;" :to="{ name: 'AddProductSide' }">가입한 상품</RouterLink>
-            </div>
+           
             <!-- 수정하기 -->
             <div class="router">
-                <RouterLink style="color: gray;" :to="{ name: 'addProduct' }">포트폴리오</RouterLink>
+                <RouterLink style="color: gray;" :to="{ name: 'AddProductSide' }">포트폴리오</RouterLink>
             </div>
             <!-- 수정하기 -->
             <div class="router">
@@ -24,8 +22,16 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
 import { RouterView, RouterLink } from 'vue-router'
 import Profile from '@/components/Profile.vue'
+import { useArticleStore } from '@/stores/article'
+
+const store = useArticleStore()
+
+onMounted(() => {
+    store.getUsers()
+})
 
 </script>
 

@@ -1,42 +1,49 @@
 <template>
   <div>
       <!-- 가입한 상품 목록 -->
-      <h2>가입한 상품 목록</h2>
-
+      <h2 id="title">가입한 상품 목록</h2>
+      <hr style="color: rgb(102, 175, 102);">
+      <br>
       <div>
-        <h5>정기예금</h5>
+        <h5 id="sub-title">정기예금</h5>
+        <br>
         <div v-if="addedDeposits" 
              v-for="product in addedDeposits"
              :key="product.id">
-            <p @click="goDepositDetail(product.id)">{{ product.kor_co_nm }} - {{ product.fin_prdt_nm }}</p>
-            <button @click="removeDeposit(product)">가입 해지</button>
+            <p id="product" @click="goDepositDetail(product.id)">{{ product.kor_co_nm }} - {{ product.fin_prdt_nm }}</p>
+            <button @click="removeDeposit(product)" class="btn btn-outline-success btn-sm" id="btn">가입 해지</button>
             <hr>
         </div>
+        <br>
 
-        <div v-if="addedDeposits.length === 0">
+        <div v-if="addedDeposits.length === 0" id="product">
           <strong>가입한 상품이 없습니다.</strong>
           <hr>
         </div>
       </div>  
 
       <div>
-        <h5>정기적금</h5>
+        <h5 id="sub-title">정기적금</h5>
+        <br>
         <div v-if="addedSavings" 
              v-for="product in addedSavings"
              :key="product.id">
-            <p @click="goSavingDetail(product.id)">{{ product.kor_co_nm }} - {{ product.fin_prdt_nm }}</p>
-            <button @click="removeSaving(product)">가입 해지</button>
+            <p id="product" @click="goSavingDetail(product.id)">{{ product.kor_co_nm }} - {{ product.fin_prdt_nm }}</p>
+            <button @click="removeSaving(product)" class="btn btn-outline-success btn-sm" id="btn">가입 해지</button>
             <hr>
         </div>
 
-        <div v-if="addedSavings.length === 0">
+        <div v-if="addedSavings.length === 0" id="product">
           <strong>가입한 상품이 없습니다.</strong>
           <hr>
         </div>
       </div>
-      
+      <br>
+      <br>
+      <br>
       <div>
-        <h2>가입한 상품 금리 비교</h2>
+        <h2 id="title">가입한 상품 금리 비교</h2>
+        <hr style="color: rgb(102, 175, 102);">
         <div style="width: 400px; height:500px;">
             <Bar id="myChart" :options="chartOptions" :data="chartData"/>
         </div>
@@ -193,5 +200,16 @@ const chartOptions = ref({
 </script>
 
 <style scoped>
+#title {
+    color: rgb(102, 175, 102);
+    font-weight: bold;
+}
 
+#sub-title {
+    color: rgb(102, 175, 102);
+}
+
+#product {
+    color: rgb(85, 85, 85);
+}
 </style>
