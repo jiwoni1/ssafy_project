@@ -41,13 +41,13 @@
       <div class="mb-3 row">
         <label for="money" class="col-sm-2 col-form-label">재산 </label>
           <div class="col-sm-10">
-            <input type="text" id="money" class="form-control" v-model.trim="money" placeholder="만원">
+            <input type="text" id="money" class="form-control" v-model.trim="money" placeholder="원">
           </div>
       </div>
       <div class="mb-3 row">
         <label for="salary" class="col-sm-2 col-form-label">연봉 </label>
         <div class="col-sm-10">
-          <input type="number" id="salary" class="form-control" v-model.trim="salary" placeholder="만원">
+          <input type="number" id="salary" class="form-control" v-model.trim="salary" placeholder="원">
         </div>
       </div>
       <input type="submit"  class="btn btn-success btn-md" style="float:right;">

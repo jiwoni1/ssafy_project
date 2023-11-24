@@ -105,9 +105,13 @@
 <script setup>
 import { useArticleStore } from '@/stores/article'
 import { useBankStore } from '@/stores/bank'
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 const articleStore = useArticleStore()
 const bankStore = useBankStore()
+
+onMounted(() => {
+    articleStore.getUsers()
+})
 
 // 예적금 데이터
 const savings = bankStore.savings

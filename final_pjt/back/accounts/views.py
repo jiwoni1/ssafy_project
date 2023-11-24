@@ -27,7 +27,7 @@ def users_data(request):
     print(request.user)
     # 나이대, 연봉, 재산이 비슷한 사람
     for user in users:
-        if abs(user.age - request.user.age) < 7 and abs(user.money - request.user.money) < 10000000 and abs(user.salary - request.user.salary) < 100000000:
+        if abs(user.age - request.user.age) < 5 and abs(user.money - request.user.money) < 7000000 and abs(user.salary - request.user.salary) < 5000000:
             print(user.financial_products)
             if user.financial_products:
                 product = set(map(str, user.financial_products.split(',')))
