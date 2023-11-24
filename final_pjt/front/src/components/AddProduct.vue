@@ -191,7 +191,7 @@ const chartOptions = ref({
   scales: {
     y: { // defining min and max so hiding the dataset does not change scale range
       min: 0,
-      max: 5
+      max: 6
     }
   },
   

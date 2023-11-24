@@ -26,7 +26,7 @@ def article_list_create(request):
 @api_view(['GET', 'PUT', 'DELETE'])
 def article_detail(request, article_pk):
     # 단일 게시글 조회
-    article = get_object_or_404(Article, pk=article_pk)
+    article = Article.objects.get(pk=article_pk)
     if request.method == 'GET':
         serializer = ArticleSerializer(article)
         return Response(serializer.data)

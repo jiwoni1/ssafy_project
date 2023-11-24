@@ -153,7 +153,7 @@
                 console.log('게시글 삭제 완료')
                 // 본인페이지로 router.push는 reload가 안돼
                 store.getArticles()
-                router.push({name:'ArticleList'})
+                router.push({name:'Community'})
                 
             })
     }

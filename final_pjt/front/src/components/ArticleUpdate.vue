@@ -1,12 +1,26 @@
 <template>
-    <div>
-        <h3>수정하기</h3>
+    <div class="update-template">
+        <h1 id="h1">게시글 수정</h1>
+        <hr>
         <form @submit.prevent="update">
-            <label for="title">제목 : </label>
-            <input type="text" id="title" v-model="title">
-            <label for="content">내용 : </label>
-            <input type="text" id="content" v-model="content">
-            <input type="submit" value="수정하기">
+            <!-- 게시글 제목 -->
+            <div class="row g-3 align-items-center">
+                <div class="col-auto">
+                    <label for="title" class="col-form-label" id="label">제목</label>
+                </div>
+                <div class="col">
+                    <input type="text" id="title" class="form-control" placeholder="제목을 입력하세요." v-model="title">
+                </div>
+            </div>
+            <br>
+            <!-- 게시글 내용 -->
+            <div class="mb-3">
+                <label for="content" class="form-label" id="label">내용</label>
+                <textarea type="text" id="content" cols="30" rows="10" class="form-control" placeholder="내용을 입력하세요." v-model="content"></textarea>
+            </div>
+            <div>
+                <input type="submit" value="수정 완료" class="btn btn-outline-success btn-lg" id="btn">
+            </div>
         </form>
     </div>
 </template>
@@ -62,5 +76,31 @@ const update = function () {
 </script>
 
 <style scoped>
+.update-template {
+    padding: 5% 15%;
+}
 
+#h1 {
+    color: rgb(102, 175, 102);
+    font-weight: bold;
+}
+
+#label {
+    color: rgb(138, 193, 138);
+    font-size: 20px;
+}
+
+hr {
+    color: rgb(102, 175, 102);
+    margin: 3% 0px;
+}
+
+#content {
+    margin-top: 10px;
+}
+
+#btn {
+    color : rgb(102, 175, 102);
+    float :right;
+}
 </style>

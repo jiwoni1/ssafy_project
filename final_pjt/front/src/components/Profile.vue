@@ -49,12 +49,12 @@
                 <hr>
                 <!-- <br> -->
                 <div class="row money">
-                    <p class="col-md-10">{{ articleStore.userData.money }} 만원</p>
+                    <p class="col-md-10">{{ articleStore.userData.money }} 원</p>
                 </div>
                 <hr>
                 <!-- <br> -->
                 <div class="row salary">
-                    <p class="col-md-10">{{ articleStore.userData.salary }} 만원</p>
+                    <p class="col-md-10">{{ articleStore.userData.salary }} 원</p>
                 </div>
             </div>
         </div>

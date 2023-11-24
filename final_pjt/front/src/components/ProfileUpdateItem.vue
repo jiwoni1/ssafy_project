@@ -40,13 +40,13 @@
                 <!-- <br> -->
                 <div class="row money">
                     <input class="col-md-10" type="text" v-model="money">
-                    <span class="col-md-1">만원</span>
+                    <span class="col-md-1">원</span>
                 </div>
                 <hr>
                 <!-- <br> -->
                 <div class="row salary">
                     <input class="col-md-10" type="text" v-model="salary">
-                    <span class="col-md-1">만원</span>
+                    <span class="col-md-1">원</span>
                 </div>
             </div>
         </div>

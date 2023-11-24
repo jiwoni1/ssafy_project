@@ -81,7 +81,7 @@
 
                     </tbody>
                     <br>
-                    <button v-if="articleStore.isLogin" @click="addSavingProduct(saving)" class="btn btn-outline-success btn-lg" id="btn">가입하기</button>
+                    <button v-if="articleStore.isLogin" @click="addSavingProduct(saving)" class="btn btn-outline-success btn-lg" id="btn">{{ isRegistered(saving) }}</button>
                 </div>
             </div>
         </table>
@@ -89,7 +89,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useBankStore } from '@/stores/bank'
 import { useArticleStore } from '@/stores/article'
@@ -97,6 +97,8 @@ import { useArticleStore } from '@/stores/article'
 const bankStore = useBankStore()
 const articleStore = useArticleStore()
 const router = useRouter()
+const registerd = ref(false)
+const registeredSavings = ref([])
 
 // 버튼 토글하기
 // const toggleText = ref('가입하기')
@@ -127,8 +129,21 @@ const addSavingProduct = (saving) => {
     // 수정된 카트 데이터를 localStorage에 저장
     localStorage.setItem('saving', JSON.stringify(existingProduct))
 
+    router.go(0)
+
     // router.push({ name: 'addProduct' })
 }
+
+const isRegistered = (saving) => {
+  const isDuplicate = registeredSavings.value.some((item) => item.id === saving.id)
+  return isDuplicate ? '가입완료' : '가입하기'
+}
+
+onMounted(() => {
+  const existingProducts = JSON.parse(localStorage.getItem('saving')) || []
+  registeredSavings.value = existingProducts
+})
+
 
 
 </script>
