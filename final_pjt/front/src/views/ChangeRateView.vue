@@ -111,7 +111,7 @@ watch(selected_country, () => {
 
 .exchange-template {
     background-color: rgb(242, 250, 242);
-    padding: 8% 30%;
+    padding: 10% 30%;
 }
 
 #title {

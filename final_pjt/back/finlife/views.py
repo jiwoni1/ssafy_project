@@ -142,7 +142,7 @@ def saving_products(request):
 @api_view(['GET'])
 def save_exchange_rate(request):
     api_key = settings.EXCHANGE_RATE_API_KEY
-    search_date = int(DateFormat(datetime.now()).format('Ymd')) - 1
+    search_date = int(DateFormat(datetime.now()).format('Ymd'))
     url = f' https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey={api_key}&searchdate={search_date}&data=AP01'
     response = requests.get(url).json()
 

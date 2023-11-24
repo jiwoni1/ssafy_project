@@ -84,7 +84,6 @@
     
     onMounted(() => {
         getArticle()
-
     })
     
     const getArticle = function () {

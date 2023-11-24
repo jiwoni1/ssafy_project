@@ -19,7 +19,7 @@
             <div>
                 <h1 id="h1">적금 및 예금 상품 추천</h1>
                 <hr>
-                <h6 class="gray"><strong>{{ articleStore.userData.nickname }}</strong>님과 비슷한 <strong>나이, 연봉, 재산</strong>을 가진 사람들이 많이 가입한 상품입니다.</h6>
+                <h6 class="gray"><strong>{{ articleStore.userData.nickname }}</strong>님과 비슷한 <strong>나이, 연봉, 재산</strong>을 가진 사람들이 가입한 상품입니다.</h6>
                 <br>
                 <br>
                 <div v-if="articleStore.usersData.same_product.length > 0">
@@ -64,7 +64,6 @@
                         <br>
                         <div v-if="selected">
                             <div>[정기적금] {{ childSaving.kor_co_nm }} - {{ childSaving.fin_prdt_nm }}</div>
-                            <p style="color: gray;">15세 이하의 개인에게 연 2.50%의 높은 금리를 적용합니다.</p>
                         </div>
                     </div>
                     <br>
@@ -82,16 +81,9 @@
                         <br>
                         <br>
                         <div v-if="selected_animal">
-                            <p style="color: gray;">우대이율 6개월제 최대 0.55%, 12개월제 최대 0.90% 적용</p>
                             <div>[정기적금] {{ animalSaving1.kor_co_nm }} - {{ animalSaving1.fin_prdt_nm }}</div>
                             <hr>
                             <br>
-                            <p style="color: gray;">우대이율 6개월제 최대 0.55%, 12개월제 최대 0.90% 적용</p>
-                            <div>[정기적금] {{ animalSaving2.kor_co_nm }} - {{ animalSaving2.fin_prdt_nm }}</div>
-                            <hr>
-                            <br>
-                            <p style="color: gray;">반려동물 요금제, 반려동물애정활동에 따른 금리 우대</p>
-                            <div>[정기적금] {{ animalSaving3.kor_co_nm }} - {{ animalSaving3.fin_prdt_nm }}</div>
                         </div>
 
                     </div>
@@ -129,7 +121,7 @@ const animalSaving3 = ref(null)
 const change_option = function () {
     selected.value = true
     for (const bank of bankStore.savings) {
-        if (bank.id == 62) {
+        if (bank.fin_prdt_nm.includes('아이')) {
             childSaving.value = bank
         }
     }
@@ -138,15 +130,10 @@ const change_option = function () {
 const change_option_animal = function () {
     selected_animal.value = true
     for (const bank of bankStore.savings) {
-        if (bank.id == 10) {
+        if (bank.fin_prdt_nm.includes('펫')) {
             animalSaving1.value = bank
+            console.log(bank.fin_prdt_nm)
         } 
-        if (bank.id == 11) {
-            animalSaving2.value = bank
-        }
-        if (bank.id == 38) {
-            animalSaving3.value = bank
-        }
     }
 }
 
